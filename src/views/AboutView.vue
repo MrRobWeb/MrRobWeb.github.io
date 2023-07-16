@@ -6,11 +6,11 @@
         <!-- Component: Horizontal card-->
         <div
             class="flex flex-col my-5 overflow-hidden bg-white rounded shadow-md sm:flex-row text-slate-500 shadow-slate-200">
-            <!-- Image -->
+            <!-- Image
             <figure class="flex-1">
                 <img src="https://picsum.photos/id/118/800/600" alt="card image"
                     class="object-cover min-h-full aspect-auto" />
-            </figure>
+            </figure> -->
             <!-- Body-->
             <div class="flex-1 p-6 sm:mx-6 sm:px-0">
                 <header class="flex gap-4 mb-4">
@@ -24,8 +24,28 @@
                     </div>
                 </header>
                 <p>
-                    I'm a unicorn mix of consulting and technolegy...
+                    Welcome to my portfolio website. I'm a humble leader and a unicorn mix of business and tech, who loves to design effective, minimal and beautifull software products.
+                  
                 </p>
+                <p class="font-bold">
+                    <q >
+                        Learning never exhaust the mind.
+                    </q>
+                    - Leonardo da Vinci
+                </p>
+                <p>
+                    Started my academic education in Applied Quantum Physics and careerwise, moved into IT consulting 9 years ago, have worked as
+                    data architect, software architect, technical trainer, pre-sales consultant
+                    in several industries, for instance, in
+                    energy, HR, automotive, aviation, retail and pharmarceutical industry.
+                </p>
+                <p>
+                    You can find all detailed information about work and education background on my Linkedin.
+                </p>
+
+                <RouterLink to="/contact" class="contact border-4 hover:border-blue-950 rounded">
+                    CONTACT ME
+                </RouterLink>
             </div>
         </div>
         <!-- End Horizontal card-->
