@@ -2,7 +2,7 @@
   <div :class="isDarkMode ? 'dark' : ''">
     <div
       class="bg-[#ffffff] min-h-screen  flex flex-col justify-between  dark:bg-[#0F172A] duration-500 transition-all ease-in-out">
-      <div class="sticky top-0 z-50 flex flex-col justify-center  bg-[#ffffff] dark:bg-[#0F172A] duration-500 transition-all ease-in-out">
+      <div ref="header" class="sticky top-0 z-50 flex flex-col justify-center  bg-[#ffffff] dark:bg-[#0F172A] duration-500 transition-all ease-in-out">
         <button @click="toggleDarkMode" class="animate-pulse my-4 right-3 sm:top-6 sm:right-6 ">
           <ModeToggler :class="isDarkMode ? 'fa-solid fa-sun' : 'fa-solid fa-moon'" />
         </button>
@@ -26,7 +26,9 @@ import { ref, onMounted } from 'vue';
 import {storeToRefs} from 'pinia';
 import { useAppStore } from './stores/appStore.js'
 
-const {theme} = storeToRefs(useAppStore());
+const header = ref(null);
+
+const {theme, heightHeader} = storeToRefs(useAppStore());
 
 const isDarkMode = ref(false);
 
@@ -36,6 +38,7 @@ onMounted(() => {
   } else {
     isDarkMode.value = false;
   }
+  heightHeader.value = header.value.offsetHeight;
 })
 
 const toggleDarkMode = () => {

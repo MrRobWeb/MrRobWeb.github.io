@@ -44,7 +44,7 @@
                     PROJECTS
                 </RouterLink>
                 <p>
-                    You can find all detailed information about work and education background on my Linkedin profile.
+                    You can find all detailed information about work and education background on my Linkedin profile. Also you can drop me a message or reach out to me at Linkedin. 
                 </p>
 
                 <RouterLink to="/contact" class="contact border-4 hover:border-blue-950 rounded">
@@ -53,12 +53,13 @@
             </div>
         </div>
         <!-- End Horizontal card-->
-        <h1 class="mt-8 mb-4 text-left text-3xl sm:text-4xl uppercase font-bold dark:text-white animate-fade">Technology
+        <h1 class="mt-8 mb-4 text-left text-3xl sm:text-4xl uppercase font-bold dark:text-white animate-fade"  >Technology
             Stack</h1>
         <TransitionGroup tag="ul" name="fade" aria-label="Activity feed" role="feed"
             class="relative flex flex-col gap-12 py-12 pl-8 before:absolute before:top-0 before:left-8 before:h-full before:border before:-translate-x-1/2 before:border-slate-200 before:border-dashed after:absolute after:top-6 after:left-8 after:bottom-6 after:border after:-translate-x-1/2 after:border-slate-200 ">
-            <li v-for="(toolStack, index) in toolStacks" :key="toolStack.header" :data-index="index"
-                @click="toggleShow(index)" role="article" class="relative pl-8 ">
+            <li :ref="setItemRef" v-for="(toolStack, index) in toolStacks" :key="toolStack.header" :data-index="index"
+                @click="toggleShow(index)" role="article" class="relative pl-8 "
+            >
                 <button
                     class="absolute left-0 z-10 flex items-center justify-center w-10 h-10 -translate-x-1/2 rounded-full text-slate-700 ring-2 ring-white bg-slate-200 ">
                     <font-awesome-icon :icon="toolStack.icon" />
@@ -83,8 +84,31 @@
 
 
 <script setup>
-import { ref, onActivated, onUpdated, onUnmounted, onMounted } from 'vue'
+import { ref, onActivated, onUpdated, onBeforeUpdate, onMounted } from 'vue'
+import {storeToRefs} from 'pinia'
 import SkillChart from '../components/SkillChart.vue';
+import { useAppStore } from '../stores/appStore.js'
+
+const {heightHeader} = storeToRefs(useAppStore());
+
+// refs for scrolling
+const itemRefs = ref([])
+const setItemRef = (el) => {
+    if (el) {
+    itemRefs.value.push(el);
+    // console.log(el.getBoundingClientRect());
+    }
+}
+
+const scrollIntoViewWithOffset = (el, offset) => {
+  window.scrollTo({
+    behavior: 'smooth',
+    top:
+        el.getBoundingClientRect().top -
+        document.body.getBoundingClientRect().top -
+        offset,
+  })
+}
 const toolStacks = ref([
     {
         header: 'Data Engineering | Data Analytics | Machine Learning',
@@ -403,17 +427,19 @@ const toolStacks = ref([
     },
 ])
 
+
 const show = ref(-1);
-
-
-const ctx = ref(null);
 
 const toggleShow = (index) => {
     if (show.value == index) {
         show.value = -1;
     } else {
-        show.value = index
+        show.value = index;
     }
+    setTimeout(function(){
+        scrollIntoViewWithOffset(itemRefs.value[index], heightHeader.value)
+
+    }, 500);
 
 }
 
