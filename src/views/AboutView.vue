@@ -20,11 +20,11 @@
                     </a>
                     <div>
                         <h3 class="text-xl font-medium text-slate-700">HELLO</h3>
-                        <p class="text-sm text-slate-400"> By Robert, july 3 2023</p>
+                        <p class="text-sm text-slate-400"> By Robert, july 16 2023</p>
                     </div>
                 </header>
                 <p>
-                    Welcome to my portfolio website. I'm a humble leader and a unicorn mix of business and tech, who loves to design effective, minimal and beautifull software products.
+                    Currently, working as Data Engineering Manager. I'm a unicorn mix of business and tech, who loves to design effective, minimal and beautifull software products.
                   
                 </p>
                 <p class="font-bold">
@@ -34,13 +34,16 @@
                     - Leonardo da Vinci
                 </p>
                 <p>
-                    Started my academic education in Applied Quantum Physics and careerwise, moved into IT consulting 9 years ago, have worked as
+                    Started my academic education in applied quantum physics and careerwise, moved into IT consulting {{ workAge }} ago, have worked as
                     data architect, software architect, technical trainer, pre-sales consultant
                     in several industries, for instance, in
                     energy, HR, automotive, aviation, retail and pharmarceutical industry.
                 </p>
-
-                <RouterLink to="/contact" class="contact border-4 hover:border-blue-950 rounded">
+                <RouterLink to="/about" @click="scrollToTechStack" class="contact border-4 hover:border-blue-950 rounded">
+                    TECHNOLOGY STACK
+                </RouterLink>
+                
+                <RouterLink to="/project" class="contact border-4 hover:border-blue-950 rounded">
                     PROJECTS
                 </RouterLink>
                 <p>
@@ -53,11 +56,11 @@
             </div>
         </div>
         <!-- End Horizontal card-->
-        <h1 class="mt-8 mb-4 text-left text-3xl sm:text-4xl uppercase font-bold dark:text-white animate-fade"  >Technology
+        <h1 ref="tech_stack" class="mt-8 mb-4 text-left text-3xl sm:text-4xl uppercase font-bold dark:text-white animate-fade"  >Technology
             Stack</h1>
         <TransitionGroup tag="ul" name="fade" aria-label="Activity feed" role="feed"
             class="relative flex flex-col gap-12 py-12 pl-8 before:absolute before:top-0 before:left-8 before:h-full before:border before:-translate-x-1/2 before:border-slate-200 before:border-dashed after:absolute after:top-6 after:left-8 after:bottom-6 after:border after:-translate-x-1/2 after:border-slate-200 ">
-            <li :ref="setItemRef" v-for="(toolStack, index) in toolStacks" :key="toolStack.header" :data-index="index"
+            <li :ref="setItemRef" v-for="(toolStack, index) in toolStacks" :key="toolStack.title" :data-index="index"
                 @click="toggleShow(index)" role="article" class="relative pl-8 "
             >
                 <button
@@ -65,9 +68,9 @@
                     <font-awesome-icon :icon="toolStack.icon" />
                 </button>
                 <div class="flex flex-col flex-1 gap-0">
-                    <h4 class="text-base font-medium "> {{ toolStack.header }}</h4>
-                    <p v-if="show != index" class="self-start animate-pulse text-sm text-black border border-orange-700 dark:text-white rounded">click to get more details</p>
-                    <p v-if="show == index" class="text-sm text-slate-500">Tools for ...</p>
+                    <h4 class="text-base font-medium "> {{ toolStack.title }}</h4><p class="text-sm text-slate-500">{{ toolStack.subTitle }}</p>
+                    <p v-if="show != index" class="self-start animate-pulse text-sm text-black border border-orange-700 dark:text-white rounded">click - to get more details</p>
+                    
                     <p v-if="show == index" class="text-block">
                         {{ toolStack.description }}
                         <SkillChart :index="index" :skills="toolStack.skills">
@@ -89,15 +92,23 @@ import {storeToRefs} from 'pinia'
 import SkillChart from '../components/SkillChart.vue';
 import { useAppStore } from '../stores/appStore.js'
 
-const {heightHeader} = storeToRefs(useAppStore());
-
+const {heightHeader, workAge} = storeToRefs(useAppStore());
 // refs for scrolling
 const itemRefs = ref([])
 const setItemRef = (el) => {
     if (el) {
     itemRefs.value.push(el);
-    // console.log(el.getBoundingClientRect());
     }
+}
+
+const tech_stack = ref(null);
+
+const scrollToTechStack = () => {
+
+    setTimeout(function(){
+        scrollIntoViewWithOffset(tech_stack.value, heightHeader.value)
+
+    }, 200);
 }
 
 const scrollIntoViewWithOffset = (el, offset) => {
@@ -106,25 +117,24 @@ const scrollIntoViewWithOffset = (el, offset) => {
     top:
         el.getBoundingClientRect().top -
         document.body.getBoundingClientRect().top -
-        offset,
+        offset-30,
   })
 }
 const toolStacks = ref([
     {
-        header: 'Data Engineering | Data Analytics | Machine Learning',
+        title: 'Data Engineering | Data Analytics | Machine Learning',
+        subTitle: 'The art of getting insights from data.',
         icon: 'fa-solid fa-chart-column',
-        description: `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna 
-                aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea 
-                takimata sanctus est Lorem ipsum dolor sit amet.`,
+        description:    `Being a data magician in the first place, I've been working in this area since finishing my studies ${workAge.value} ago.
+                        `,
         skills: {
             programmingLanguages: {
-                description: `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna 
-                aliquyam erat, sed diam voluptua.`,
+                description: `In the data world, programming languages are your hammer and chissel to form your data. For this reason these skills are essential:`,
                 values:
                     [
                         {
                             name: 'Python',
-                            skillValue: '0.9'
+                            skillValue: '0.94'
                         },
                         {
                             name: 'SQL',
@@ -137,12 +147,15 @@ const toolStacks = ref([
                         {
                             name: 'Qlik ETL',
                             skillValue: '0.98'
+                        },
+                        {
+                            name: 'Java',
+                            skillValue: '0.7'
                         }
                     ]
             },
             frameworks: {
-                description: `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna 
-                aliquyam erat, sed diam voluptua.`,
+                description: `I've been working with the following tools and frameworks:`,
                 values:
                     [
                         {
@@ -154,19 +167,26 @@ const toolStacks = ref([
                             skillValue: '0.95'
                         },
                         {
-                            name: 'Scala',
+                            name: 'Kafka',
                             skillValue: '0.5'
-                        }
+                        },
+                        {
+                            name: 'Qlik',
+                            skillValue: '0.95'
+                        },
+                        {
+                            name: 'Power BI',
+                            skillValue: '0.9'
+                        },
                     ]
             },
             libraries: {
-                description: `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna 
-                aliquyam erat, sed diam voluptua.`,
+                description: `These are noteworthy libraries:`,
                 values:
                     [
                         {
                             name: 'Pandas',
-                            skillValue: '0.9'
+                            skillValue: '0.95'
                         },
                         {
                             name: 'scikit-learn',
@@ -174,15 +194,15 @@ const toolStacks = ref([
                         },
                         {
                             name: 'tensorflow',
-                            skillValue: '0.65'
+                            skillValue: '0.4'
                         },
                         {
                             name: 'boto3',
-                            skillValue: '0.9'
+                            skillValue: '0.95'
                         },
                         {
                             name: 'awswrangler',
-                            skillValue: '0.9'
+                            skillValue: '0.95'
                         }
                     ]
             },
@@ -190,24 +210,26 @@ const toolStacks = ref([
 
     },
     {
-        header: 'Frontend',
+        title: 'Frontend',
+        subTitle: 'Generate user friendly interaction between human and machines.',
         icon: 'fa-solid fa-image',
-        description: `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna 
-                aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea 
-                takimata sanctus est Lorem ipsum dolor sit amet.`,
+        description: `Creating a user friendly UI in data analytics is key. Foremost, it's important that every user interpretates the depicted data in the same way. Nothing is worse then creating discussion in the analytics world.`,
         skills: {
             programmingLanguages: {
-                description: `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna 
-                aliquyam erat, sed diam voluptua.`,
+                description: `Programming languages I've been using:`,
                 values:
                     [
                         {
-                            name: 'Javscript',
+                            name: 'Javascript',
                             skillValue: '0.93'
                         },
                         {
                             name: 'Typescript',
                             skillValue: '0.85'
+                        },
+                        {
+                            name: 'Dart',
+                            skillValue: '0.5'
                         },
                         {
                             name: 'HTML',
@@ -220,47 +242,61 @@ const toolStacks = ref([
                     ]
             },
             frameworks: {
-                description: `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna 
-                aliquyam erat, sed diam voluptua.`,
+                description: `Even, my favourite frontend setup consists of Vue 3, Tailwind CSS created with Vite and Pinia as statemanagement library, I took a plunge into several other frameworks and libraries:`,
                 values:
                     [
                         {
                             name: 'Vue.js',
-                            skillValue: '0.9'
+                            skillValue: '0.95'
                         },
                         {
-                            name: 'React',
-                            skillValue: '0.75'
+                            name: 'Vite',
+                            skillValue: '0.8'
                         },
                         {
                             name: 'Angular',
                             skillValue: '0.4'
+                        },
+                        {
+                            name: 'Flutter',
+                            skillValue: '0.5'
+                        },
+                        {
+                            name: 'Tailwind CSS',
+                            skillValue: '0.9'
                         }
                     ]
             },
             libraries: {
-                description: `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna 
-                aliquyam erat, sed diam voluptua.`,
+                description: `Noteworthy libraries:`,
                 values:
                     [
                         {
-                            name: 'Pandas',
-                            skillValue: '0.9'
+                            name: 'Babylon JS',
+                            skillValue: '0.75'
                         },
                         {
-                            name: 'scikit-learn',
+                            name: 'React',
                             skillValue: '0.65'
                         },
                         {
-                            name: 'tensorflow',
-                            skillValue: '0.65'
+                            name: 'Chart JS',
+                            skillValue: '0.8'
                         },
                         {
-                            name: 'boto3',
+                            name: 'Pinia',
                             skillValue: '0.9'
                         },
                         {
-                            name: 'awswrangler',
+                            name: 'aws-sdk',
+                            skillValue: '0.7'
+                        },
+                        {
+                            name: 'webpack',
+                            skillValue: '0.7'
+                        },
+                        {
+                            name: '.env',
                             skillValue: '0.9'
                         }
                     ]
@@ -268,159 +304,131 @@ const toolStacks = ref([
         },
     },
     {
-        header: 'Backend',
+        title: 'Backend',
+        subTitle: 'The fundament of every great application.',
         icon: 'fa-solid fa-server',
-        description: `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna 
-                aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea 
-                takimata sanctus est Lorem ipsum dolor sit amet.`,
+        description: `My experience regarding backend technologies is quite ok. I've been working on building REST APIs using Node.js, Flask/Django and Spring. Nevertheless, I am not a backend expert.`,
         skills: {
             programmingLanguages: {
-                description: `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna 
-                aliquyam erat, sed diam voluptua.`,
+                description: `Programming languages:`,
                 values:
 
                     [
                         {
                             name: 'Python',
-                            skillValue: '0.9'
+                            skillValue: '0.94'
                         },
                         {
-                            name: 'SQL',
-                            skillValue: '0.95'
+                            name: 'Javascript',
+                            skillValue: '0.93'
                         },
                         {
-                            name: 'Scala',
-                            skillValue: '0.5'
+                            name: 'Java|Maven',
+                            skillValue: '0.6'
                         },
-                        {
-                            name: 'Qlik ETL',
-                            skillValue: '0.98'
-                        }
                     ]
             },
             frameworks: {
-                description: `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna 
-                aliquyam erat, sed diam voluptua.`,
+                description: `Frameworks I took a plunge into:`,
                 values:
                     [
                         {
-                            name: 'Spark | AWS Glue',
-                            skillValue: '0.9'
+                            name: 'Node',
+                            skillValue: '0.85'
                         },
                         {
-                            name: 'Presto | AWS Athena',
-                            skillValue: '0.95'
+                            name: 'Flask',
+                            skillValue: '0.5'
                         },
                         {
-                            name: 'Scala',
+                            name: 'Django',
+                            skillValue: '0.5'
+                        },
+                        {
+                            name: 'Spring | Spring Boot',
                             skillValue: '0.5'
                         }
                     ]
             },
             libraries: {
-                description: `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna 
-                aliquyam erat, sed diam voluptua.`,
+                description: `Noteworthy libraries:`,
                 values:
                     [
                         {
-                            name: 'Pandas',
-                            skillValue: '0.9'
+                            name: 'Express JS',
+                            skillValue: '0.8'
                         },
-                        {
-                            name: 'scikit-learn',
-                            skillValue: '0.65'
-                        },
-                        {
-                            name: 'tensorflow',
-                            skillValue: '0.65'
-                        },
-                        {
-                            name: 'boto3',
-                            skillValue: '0.9'
-                        },
-                        {
-                            name: 'awswrangler',
-                            skillValue: '0.9'
-                        }
                     ]
             },
         },
     },
     {
-        header: 'DevOps',
+        title: 'DevOps',
+        subTitle: 'The philosophy to automate the integration of great devolopment work into operation.',
         icon: 'fa-solid fa-gears',
-        description: `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna 
-                aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea 
-                takimata sanctus est Lorem ipsum dolor sit amet.`,
+        description: `In my opinion DevOps is not about coding, It's about knowing your business & IT operation, creating a release and update process and then building the analogue CI/CD structure, which fits your needs.`,
         skills: {
             programmingLanguages: {
-                description: `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna 
-                aliquyam erat, sed diam voluptua.`,
+                description: `Essential tools & programming languages:`,
                 values:
 
                     [
                         {
                             name: 'Python',
+                            skillValue: '0.94'
+                        },
+                        {
+                            name: 'Javascript',
+                            skillValue: '0.93'
+                        },
+                        {
+                            name: 'Git',
                             skillValue: '0.9'
                         },
                         {
-                            name: 'SQL',
-                            skillValue: '0.95'
+                            name: 'Docker',
+                            skillValue: '0.8'
                         },
                         {
-                            name: 'Scala',
-                            skillValue: '0.5'
+                            name: 'Docker Compose',
+                            skillValue: '0.6'
                         },
                         {
-                            name: 'Qlik ETL',
-                            skillValue: '0.98'
-                        }
+                            name: 'Kubernetes',
+                            skillValue: '0.3'
+                        },
                     ]
             },
             frameworks: {
-                description: `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna 
-                aliquyam erat, sed diam voluptua.`,
+                description: `Cloud Environments:`,
                 values:
                     [
                         {
-                            name: 'Spark | AWS Glue',
+                            name: 'AWS - Codepipeline | Codebuild | Codecommit',
                             skillValue: '0.9'
                         },
                         {
-                            name: 'Presto | AWS Athena',
-                            skillValue: '0.95'
+                            name: 'Azure DevOps',
+                            skillValue: '0.3'
                         },
-                        {
-                            name: 'Scala',
-                            skillValue: '0.5'
-                        }
                     ]
             },
             libraries: {
-                description: `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna 
-                aliquyam erat, sed diam voluptua.`,
+                description: `Additional tools and knwowledge:`,
                 values:
                     [
                         {
-                            name: 'Pandas',
+                            name: 'Linux',
                             skillValue: '0.9'
                         },
                         {
-                            name: 'scikit-learn',
-                            skillValue: '0.65'
+                            name: 'Node.js',
+                            skillValue: '0.85'
                         },
                         {
-                            name: 'tensorflow',
-                            skillValue: '0.65'
+                            name: 'Networks',
+                            skillValue: '0.85'
                         },
-                        {
-                            name: 'boto3',
-                            skillValue: '0.9'
-                        },
-                        {
-                            name: 'awswrangler',
-                            skillValue: '0.9'
-                        }
                     ]
             },
         },
@@ -440,6 +448,7 @@ const toggleShow = (index) => {
         scrollIntoViewWithOffset(itemRefs.value[index], heightHeader.value)
 
     }, 500);
+
 
 }
 

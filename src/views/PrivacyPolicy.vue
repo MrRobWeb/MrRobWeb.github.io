@@ -18,7 +18,7 @@
         </p>
         <h2>Definitions</h2>
         <p>For the purposes of this Privacy Policy:</p>
-        <ul>
+        <ul class="ul_privacy">
             <li>
                 <p><strong>Account</strong> means a unique account created for You to access our Service or parts of our
                     Service.</p>
@@ -81,7 +81,7 @@
         <p>While using Our Service, We may ask You to provide Us with certain personally identifiable information that can
             be
             used to contact or identify You. Personally identifiable information may include, but is not limited to:</p>
-        <ul>
+        <ul class="ul_privacy">
             <li>Usage Data</li>
         </ul>
         <h3>Usage Data</h3>
@@ -104,7 +104,7 @@
             information.
             Tracking technologies used are beacons, tags, and scripts to collect and track information and to improve and
             analyze Our Service. The technologies We use may include:</p>
-        <ul>
+        <ul class="ul_privacy">
             <li><strong>Cookies or Browser Cookies.</strong> A cookie is a small file placed on Your Device. You can
                 instruct
                 Your browser to refuse all Cookies or to indicate when a Cookie is being sent. However, if You do not accept
@@ -124,7 +124,7 @@
             browser. You can learn more about cookies on <a href="https://www.termsfeed.com/blog/cookies/#What_Are_Cookies"
                 target="_blank">TermsFeed website</a> article.</p>
         <p>We use both Session and Persistent Cookies for the purposes set out below:</p>
-        <ul>
+        <ul class="ul_privacy">
             <li>
                 <p><strong>Necessary / Essential Cookies</strong></p>
                 <p>Type: Session Cookies</p>
@@ -158,7 +158,7 @@
             the Cookies section of our Privacy Policy.</p>
         <h2>Use of Your Personal Data</h2>
         <p>The Company may use Personal Data for the following purposes:</p>
-        <ul>
+        <ul class="ul_privacy">
             <li>
                 <p><strong>To provide and maintain our Service</strong>, including to monitor the usage of our Service.</p>
             </li>
@@ -208,7 +208,7 @@
             </li>
         </ul>
         <p>We may share Your personal information in the following situations:</p>
-        <ul>
+        <ul class="ul_privacy">
             <li><strong>With Service Providers:</strong> We may share Your personal information with Service Providers to
                 monitor and analyze the use of our Service, to contact You.</li>
             <li><strong>For business transfers:</strong> We may share or transfer Your personal information in connection
@@ -280,7 +280,7 @@
             or in response to valid requests by public authorities (e.g. a court or a government agency).</p>
         <h3>Other legal requirements</h3>
         <p>The Company may disclose Your Personal Data in the good faith belief that such action is necessary to:</p>
-        <ul>
+        <ul class="ul_privacy">
             <li>Comply with a legal obligation</li>
             <li>Protect and defend the rights or property of the Company</li>
             <li>Prevent or investigate possible wrongdoing in connection with the Service</li>
@@ -322,7 +322,7 @@
         effective when they are posted on this page.</p>
     <h1>Contact Us</h1>
     <p>If you have any questions about this Privacy Policy, You can contact us:</p>
-    <ul>
+    <ul class="ul_privacy">
         <li>By visiting this page on our website: <a href="mrrobweb.github.io/contact" rel="external nofollow noopener"
                 target="_blank">mrrobweb.github.io/contact</a></li>
     </ul>
@@ -364,7 +364,7 @@ p {
   margin-right: 0;
 }
 
-ul {
+.ul_privacy {
   display: block;
   list-style-type: disc;
   margin-top: 1em;

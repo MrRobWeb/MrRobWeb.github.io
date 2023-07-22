@@ -8,7 +8,7 @@
     </canvas>
   </div>
   <p class="text-block my-2">
-    {{ props.skills.programmingLanguages.description }}
+    {{ props.skills.frameworks.description }}
   </p>
   <div class="md:w-8/12 mx-auto">
     <canvas ref="frameworks" :id="`toolstack-2-${props.index}`" class="my-5">
@@ -16,7 +16,7 @@
     </canvas>
   </div>
   <p class="text-block my-2">
-    {{ props.skills.programmingLanguages.description }}
+    {{ props.skills.libraries.description }}
   </p>
   <div class="md:w-8/12 mx-auto">
     <canvas ref="libraries" :id="`toolstack-3-${props.index}`" class="my-5">
@@ -83,6 +83,7 @@ const createSkillCharts = (theme) => {
   for (const key in props.skills) {
     if (Object.hasOwnProperty.call(props.skills, key)) {
       let element = props.skills[key];
+      let sortedElement = element.values.sort((a,b) => b.skillValue - a.skillValue);
       let labels = element.values.map((el) => el.name);
       let dataValues = element.values.map((el) => el.skillValue * 100);
       let backgroundColor = element.values.map((el) => `rgba(${rgba_value}, ${rgba_value}, ${rgba_value}, ${el.skillValue})`);
@@ -99,6 +100,7 @@ const createSkillCharts = (theme) => {
 
       config = {
         type: 'bar',
+        beginAtZero: true,
         data,
         options: {
           // indexAxis: 'y',
@@ -108,9 +110,11 @@ const createSkillCharts = (theme) => {
                 color: font_color
               }
             },
-            x: {
+            y: {
+              min: 0,
+              max: 100,
               ticks: {
-                color: font_color
+                color: font_color,
               }
             }
           }

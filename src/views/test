@@ -11,22 +11,23 @@
                         This is an exerpt of projects I've lead.
                     </p>
                 </div>
-                <transition-group v-if="!isAppeared" appear tag="ul" @before-enter="beforeEnter" @enter="enter" 
+                <transition-group appear tag="ul" @before-enter="beforeEnter" @enter="enter" 
                     class="divide-y divide-gray-200 dark:divide-gray-700">
                     <li v-for="(project, index) in projects" :key="project.title" :data-index="index" class="py-12">
                         <article>
                             <div class="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
                                 <dl>
                                     <dt class="sr-only">Published on</dt>
-                                    <dd class="text-base font-medium leading-6 dark:text-white">{{ project.role }} </dd>
-                                    <dd class="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">{{ project.date }} </dd>
+                                    <dd class="text-base font-medium leading-6 dark:text-white"><time
+                                            datetime="2021-08-07T15:32:14.000Z"> {{ project.date }} | {{ project.role }}
+                                        </time></dd>
                                 </dl>
                                 <div class="space-y-5 xl:col-span-3">
                                     <div class="space-y-6">
                                         <div>
                                             <h2 :ref="setItemRef" class="text-2xl font-bold leading-8 tracking-tight"><a
                                                     class="text-gray-900 dark:text-white">{{ project.title }}</a></h2>
-                                            <div class="flex flex-wrap ">
+                                            <div class="flex flex-wrap">
                                                 <a class="mr-3 text-sm font-medium  text-primary-500 dark:text-white hover:text-primary-600 dark:hover:text-primary-400"
                                                     v-for="technology in project.technologies">
                                                     {{ technology }}
@@ -34,55 +35,8 @@
                                             </div>
                                         </div>
                                         <div v-if="show != index"
-                                            class="text-gray-500 dark:text-gray-400">
-                                            {{ project.description.substring(0,90) }} ...
-                                        </div>
-                                        <div v-if="show == index" class=" text-gray-500 dark:text-gray-400">
+                                            class="truncate  text-gray-500 dark:text-gray-400">
                                             {{ project.description }}
-                                        </div>
-                                    </div>
-                                    <div class="text-base font-medium leading-6  dark:text-white">
-                                        <button v-if="show != index" class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                                            aria-label="Read &quot;New features in v1&quot;" @click="toggleShow(index)">
-                                            Read more →
-                                        </button>
-
-                                        <button v-if="show == index" class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                                            aria-label="Read &quot;New features in v1&quot;" @click="toggleShow(index)">
-                                            Read less →
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                    </li>
-                </transition-group>
-
-                <transition-group v-if="isAppeared" name="fade" tag="ul"
-                    class="divide-y divide-gray-200 dark:divide-gray-700">
-                    <li v-for="(project, index) in projects" :key="project.title" :data-index="index" class="py-12">
-                        <article>
-                            <div class="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
-                                <dl>
-                                    <dt class="sr-only">Published on</dt>
-                                    <dd class="text-base font-medium leading-6 dark:text-white">{{ project.role }} </dd>
-                                    <dd class="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">{{ project.date }} </dd>
-                                </dl>
-                                <div class="space-y-5 xl:col-span-3">
-                                    <div class="space-y-6">
-                                        <div>
-                                            <h2 :ref="setItemRef" class="text-2xl font-bold leading-8 tracking-tight"><a
-                                                    class="text-gray-900 dark:text-white">{{ project.title }}</a></h2>
-                                            <div class="flex flex-wrap ">
-                                                <a class="mr-3 text-sm font-medium  text-primary-500 dark:text-white hover:text-primary-600 dark:hover:text-primary-400"
-                                                    v-for="technology in project.technologies">
-                                                    {{ technology }}
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div v-if="show != index"
-                                            class="text-gray-500 dark:text-gray-400">
-                                            {{ project.description.substring(0,90) }} ...
                                         </div>
                                         <div v-if="show == index" class=" text-gray-500 dark:text-gray-400">
                                             {{ project.description }}
@@ -115,7 +69,7 @@ import Loader from '../components/Loader.vue';
 import { useAppStore } from '../stores/appStore.js'
 import gsap from 'gsap'
 
-const isAppeared = ref(false);
+
 
 const {heightHeader, workAge} = storeToRefs(useAppStore());
 // refs for scrolling
@@ -143,11 +97,10 @@ const toggleShow = (index) => {
     } else {
         show.value = index;
     }
-    // setTimeout(function () {
-    //     scrollIntoViewWithOffset(itemRefs.value[index], heightHeader.value)
-    //     console.log('scroll')
+    setTimeout(function () {
+        scrollIntoViewWithOffset(itemRefs.value[index], heightHeader.value)
 
-    // }, 200);
+    }, 200);
 
 
 }
@@ -156,15 +109,14 @@ const projects = ref([
     {
         title: 'CI/CD integration for dozens of data pipelines for more then 100 customers',
         role: 'Lead DevOps Engineer',
-        industry: 'Energy Services',
         technologies: ['Terraform', 'AWS Codebuild|Codepipeline|Codecommit', 'Git', 'CDK', 'AWS CloudFormation'],
         date: 'April 2023 - Today',
-        description: ``
+        description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
+
     },
     {
         title: 'Data pipelines architecture based on AWS resources',
         role: 'Lead Data Architect',
-        industry: 'Energy Services',
         technologies: ['AWS Step Functions|State Machines|Activites', 'Spark|AWS Glue', 'Presto|AWS Athena', 'AWS Lambda', 'AWS - S3|SNS|CloudWatch|DynamoDB|EC2|Cloud9'],
         date: 'April 2023 - Today',
         description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
@@ -172,29 +124,9 @@ const projects = ref([
     {
         title: 'Design and architecture of a progressive webapp to configure data pipelines',
         role: 'Lead Frontend Architect',
-        industry: 'Energy Services',
         technologies: ['Vite', 'Vue3', 'Tailwind CSS', 'aws-sdk', 'DynamoDB'],
         date: 'April 2023 - Today',
         description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
-    },
-    {
-        title: 'Trainings in data analytics and data engineering',
-        role: 'Trainer',
-        technologies: ['Data Literacy', 'BI Design', 'Data Modelling', 'Data Transformation', 'Qlik Deep Dive'],
-        date: 'September 2014 - February 2019',
-        description:    `During my time as BI consultant I worked on the creation of several trainings in  data analytics and data engineering area.  
-                        This includes teaching general designing concepts to create beautiful dashboards, data modelling fundamentals as well as general data literacy topics.
-                        Additionally, I've designed deep dive trainings using advanced Qlik ETL techniques and Qlik Administration for a world wide audience.`
-    },
-    {
-        title: 'Trainings in data analytics and data engineering',
-        role: 'Trainer',
-        industry: 'Energy Services',
-        technologies: ['Data Literacy', 'BI Design', 'Data Modelling', 'Data Transformation', 'Qlik Deep Dive'],
-        date: 'September 2014 - February 2019',
-        description:    `During my time as BI consultant I worked on the creation of several trainings in  data analytics and data engineering area.  
-                        This includes teaching general designing concepts to create beautiful dashboards, data modelling fundamentals as well as general data literacy topics.
-                        Additionally, I've designed deep dive trainings using advanced Qlik ETL techniques and Qlik Administration for a world wide audience.`
     },
 ])
 
@@ -205,24 +137,36 @@ const beforeEnter = (el) => {
 }
 
 const enter = (el, done) => {
-    const duration = 0.8;
-    const delay = el.dataset.index * 0.2;
     gsap.to(el, {
         opacity: 1,
         x: 0,
-        duration: duration,
+        duration: 0.8,
         onComplete: done,
-        delay: delay
+        delay: el.dataset.index * 0.2
     })
-
-    console.info('Appeared:', Number(el.dataset.index)+1, 'of', projects.value.length)
-    setTimeout(function () {
-        if (Number(el.dataset.index)+1 === projects.value.length) {
-            isAppeared.value = true;
-        }
-    }, (duration + delay)*1000)
 
 }
 
 </script>
 
+<style>
+/* 1. declare transition */
+.fade-move,
+.fade-enter-active,
+.fade-leave-active {
+    transition: all 0.2s cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+/* 2. declare enter from and leave to state */
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+    transform: scaleY(0.01) translate(30px, 0);
+}
+
+/* 3. ensure leaving items are taken out of layout flow so that moving
+      animations can be calculated correctly. */
+.fade-leave-active {
+    position: absolute;
+}
+</style>
