@@ -39,7 +39,7 @@ const closeMessage = () => {
             <slot name="body"></slot>
             <div class="mb-4">
                 <h2 class="block text-gray-700 font-bold mb-2" for="captcha">
-                    Am I a robot?
+                    Are you a robot?
                 </h2>
 
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="captcha">

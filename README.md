@@ -4,7 +4,6 @@ Clean, fancy and minimal portfolio made on:
 - VUE JS
 - Tailwind CSS 
 - Chart JS
-- reCAPTCHA
 - Contact form via https://web3forms.com/
 
 and :heart: !
@@ -13,6 +12,8 @@ and :heart: !
 
 - Light/dark mode toggle
 - Responsive
+- Captcha for dropping a message
+- Custom transitions 
 
 ## Run Locally
 

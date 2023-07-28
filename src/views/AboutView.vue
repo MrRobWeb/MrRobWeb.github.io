@@ -24,7 +24,8 @@
                     </div>
                 </header>
                 <p>
-                    Currently, working as Data Engineering Manager. I'm a unicorn mix of business and tech, who loves to design effective, minimal and beautifull software products.
+                    Currently, working as Data Engineering Manager. I'm a unicorn mix of business and tech, who loves to design effective, 
+                    minimal and beautifull software products.
                   
                 </p>
                 <p class="font-bold">
@@ -35,7 +36,7 @@
                 </p>
                 <p>
                     Started my academic education in applied quantum physics and careerwise, moved into IT consulting {{ workAge }} ago, have worked as
-                    data architect, software architect, technical trainer, pre-sales consultant
+                    devops engineer, data architect, data engineer, trainer, project manager, fullstack developer and pre-sales consultant
                     in several industries, for instance, in
                     energy, HR, automotive, aviation, retail and pharmarceutical industry.
                 </p>
@@ -351,12 +352,16 @@ const toolStacks = ref([
                     ]
             },
             libraries: {
-                description: `Noteworthy libraries:`,
+                description: `Noteworthy tools & libraries:`,
                 values:
                     [
                         {
                             name: 'Express JS',
                             skillValue: '0.8'
+                        },
+                        {
+                            name: 'Postman',
+                            skillValue: '0.7'
                         },
                     ]
             },
@@ -366,7 +371,7 @@ const toolStacks = ref([
         title: 'DevOps',
         subTitle: 'The philosophy to automate the integration of great devolopment work into operation.',
         icon: 'fa-solid fa-gears',
-        description: `In my opinion DevOps is not about coding, It's about knowing your business & IT operation, creating a release and update process and then building the analogue CI/CD structure, which fits your needs.`,
+        description: `In my opinion DevOps is not about coding, It's about knowing your business & IT operation, defining a release and update process and then building the analogue CI/CD structure as well as version management, which fits your needs.`,
         skills: {
             programmingLanguages: {
                 description: `Essential tools & programming languages:`,
@@ -383,6 +388,10 @@ const toolStacks = ref([
                         },
                         {
                             name: 'Git',
+                            skillValue: '0.9'
+                        },
+                        {
+                            name: 'Bash | Shell',
                             skillValue: '0.9'
                         },
                         {
@@ -409,7 +418,7 @@ const toolStacks = ref([
                         },
                         {
                             name: 'Azure DevOps',
-                            skillValue: '0.3'
+                            skillValue: '0.4'
                         },
                     ]
             },
@@ -428,6 +437,14 @@ const toolStacks = ref([
                         {
                             name: 'Networks',
                             skillValue: '0.85'
+                        },
+                        {
+                            name: 'Postman',
+                            skillValue: '0.7'
+                        },
+                        {
+                            name: 'IAM management',
+                            skillValue: '0.95'
                         },
                     ]
             },
