@@ -2,7 +2,7 @@
 <template>
     <!-- Component: Activity feed -->
 
-    <div class="flex flex-col my-10  sm:w-8/12 mx-auto animate-fade dark:text-white">
+    <div class="flex flex-col my-10  sm:w-8/12 md:mx-auto animate-fade dark:text-white">
         <!-- Component: Horizontal card-->
         <div
             class="flex flex-col my-5 overflow-hidden bg-white rounded shadow-md sm:flex-row text-slate-500 shadow-slate-200">
@@ -101,6 +101,12 @@ const setItemRef = (el) => {
     itemRefs.value.push(el);
     }
 }
+
+onMounted(() => {
+    window.scrollTo({
+    top: 0
+  })
+})
 
 const tech_stack = ref(null);
 

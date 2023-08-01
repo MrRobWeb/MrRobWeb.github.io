@@ -44,9 +44,15 @@
 <script setup> 
 
 import { text } from '@fortawesome/fontawesome-svg-core';
-import {ref} from 'vue'
+import {ref, onMounted} from 'vue'
 import gsap from 'gsap'
 import Modal from '../components/Modal.vue'
+
+onMounted(() => {
+    window.scrollTo({
+    top: 0
+  })
+})
 
 const showModal = ref(false)
 const icons = ref([

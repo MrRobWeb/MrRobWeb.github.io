@@ -141,6 +141,12 @@ import { useAppStore } from '../stores/appStore.js'
 import Modal from '../components/Modal.vue'
 import gsap from 'gsap'
 
+onMounted(() => {
+    window.scrollTo({
+    top: 0
+  })
+})
+
 const isAppeared = ref(false);
 
 const { heightHeader, workAge } = storeToRefs(useAppStore());

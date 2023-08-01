@@ -1,17 +1,20 @@
 <template>
-  <div :class="isDarkMode ? 'dark' : ''">
+  <div :class="isDarkMode ? 'dark' : '' ">
     <div
       class="bg-[#ffffff] min-h-screen  flex flex-col justify-between  dark:bg-[#0F172A] duration-500 transition-all ease-in-out">
-      <div ref="header" class="sticky top-0 z-50 flex flex-col justify-center  bg-[#ffffff] dark:bg-[#0F172A] duration-500 transition-all ease-in-out">
-        <button @click="toggleDarkMode" class="animate-pulse my-4 right-3 sm:top-6 sm:right-6 ">
-          <ModeToggler :class="isDarkMode ? 'fa-solid fa-sun' : 'fa-solid fa-moon'" />
-        </button>
-        <CardHeader />
-      </div>
-      <RouterView />
+      <div class="mx-6">
+        <div ref="header"
+          class="sticky top-0 z-50 flex flex-col justify-center  bg-[#ffffff] dark:bg-[#0F172A] duration-500 transition-all ease-in-out">
+          <button @click="toggleDarkMode" class="animate-pulse my-4 right-3 sm:top-6 sm:right-6 ">
+            <ModeToggler :class="isDarkMode ? 'fa-solid fa-sun' : 'fa-solid fa-moon'" />
+          </button>
+          <CardHeader />
+        </div>
+        <RouterView />
 
-      
-      <CardFooter />
+
+        <CardFooter />
+      </div>
     </div>
   </div>
 </template>
@@ -23,12 +26,12 @@ import CardFooter from './components/CardFooter.vue';
 
 
 import { ref, onMounted } from 'vue';
-import {storeToRefs} from 'pinia';
+import { storeToRefs } from 'pinia';
 import { useAppStore } from './stores/appStore.js'
 
 const header = ref(null);
 
-const {theme, heightHeader} = storeToRefs(useAppStore());
+const { theme, heightHeader } = storeToRefs(useAppStore());
 
 const isDarkMode = ref(false);
 
@@ -44,11 +47,11 @@ onMounted(() => {
 const toggleDarkMode = () => {
   if (isDarkMode.value) {
     localStorage.theme = 'light';
-    theme.value='light';
+    theme.value = 'light';
     isDarkMode.value = false;
   } else {
     localStorage.theme = 'dark';
-    theme.value='dark';
+    theme.value = 'dark';
     isDarkMode.value = true;
   }
 }
