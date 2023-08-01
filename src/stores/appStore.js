@@ -15,7 +15,7 @@ export const useAppStore = defineStore('app', {
     state: () => ({ 
         theme: localStorage.theme,
         heightHeader: 0,
-        workAge: dateAgo('2014.08.01'),
+        workAge: dateAgo('2014/08/01'),
     getters: {
     },
     actions: {
