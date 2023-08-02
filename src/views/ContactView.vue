@@ -1,5 +1,5 @@
 <template>
-    <div class="flex my-10 justify-center sm:w-8/12 mx-auto animate-fade">
+    <div class="flex md:my-10 sm:w-8/12m mx-auto animate-fade">
         <div class="flex flex-col mb-auto ">
             
             <h1 class="mt-8 mb-4 text-center text-3xl sm:text-4xl uppercase font-bold dark:text-white animate-fade">Contact me</h1>
@@ -8,8 +8,8 @@
                 tag="ul"
                 @before-enter="beforeEnter"
                 @enter="enter"
-                class="grid grid-cols-2 gap-10 text-center ">
-                <div v-for="(icon, index) in icons" :key="icon.name" :data-index="index">
+                class="grid grid-cols-2 md:gap-10 sm:gap-5 place-content-around text-center ">
+                <span v-for="(icon, index) in icons" :key="icon.name" :data-index="index">
                     <a v-if="icon.href"
                         :href="icon.href" target="_blank"
                         class="m-1 p-1 text-2xl hover:text-blue-600 ">
@@ -35,7 +35,7 @@
                         </modal>
                     </Teleport>
 
-                </div>
+                </span>
             </transition-group>
         </div>
     </div>

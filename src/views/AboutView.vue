@@ -2,10 +2,10 @@
 <template>
     <!-- Component: Activity feed -->
 
-    <div class="flex flex-col my-10  sm:w-8/12 md:mx-auto animate-fade dark:text-white">
+    <div class="flex flex-col  sm:w-8/12 md:mx-auto animate-fade dark:text-white">
         <!-- Component: Horizontal card-->
         <div
-            class="flex flex-col my-5 overflow-hidden bg-white rounded shadow-md sm:flex-row text-slate-500 shadow-slate-200">
+            class="flex flex-col overflow-hidden bg-white rounded shadow-md sm:flex-row text-slate-500 shadow-slate-200">
             <!-- Image
             <figure class="flex-1">
                 <img src="https://picsum.photos/id/118/800/600" alt="card image"
@@ -13,16 +13,16 @@
             </figure> -->
             <!-- Body-->
             <div class="flex-1 p-6 sm:mx-6 sm:px-0">
-                <header class="flex gap-4 mb-4">
+                <span class="flex gap-4 ">
                     <a href="#" class="relative inline-flex items-center justify-center w-12 h-12 text-white rounded-full">
                         <img src="../assets/imgs/1523715750245.jpeg" alt="user name" title="user name" width="48"
                             height="48" class="max-w-full rounded-full" />
                     </a>
                     <div>
-                        <h3 class="text-xl font-medium text-slate-700">HELLO</h3>
-                        <p class="text-sm text-slate-400"> By Robert, july 16 2023</p>
+                        <div class="text-xl font-medium  text-slate-700">HELLO</div>
+                        <div class="text-sm font-medium  text-slate-400"> By Robert, july 16 2023</div>
                     </div>
-                </header>
+                </span>
                 <p>
                     Currently, working as Data Engineering Manager. I'm a unicorn mix of business and tech, who loves to design effective, 
                     minimal and beautifull software products.

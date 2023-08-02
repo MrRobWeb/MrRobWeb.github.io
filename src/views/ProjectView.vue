@@ -1,14 +1,14 @@
 <template>
-    <div class="flex my-10 justify-center sm:w-8/12 mx-auto animate-fade">
+    <div class="flex sm:w-8/12 mx-auto animate-fade">
         <div class="flex flex-col mb-auto ">
             <div class="divide-y divide-gray-200 dark:divide-gray-700">
-                <div class="space-y-2 pt-6 pb-8 md:space-y-5">
-                    <h1
+                <div class="space-y-2 md:space-y-5">
+                    <div
                         class="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
                         Projects
-                    </h1>
+                    </div>
                     <p class="text-lg leading-7 text-gray-500 dark:text-gray-400">
-                        This is an exerpt of project types I've managed in differnt roles, during my work life: 
+                        This is an exerpt of project types I've managed in differnt roles, during my work life:
                         <!-- as data
                         engineer, data architect, frontend engineer, lead consultant, trainer and DevOps engineer. -->
 
@@ -143,8 +143,8 @@ import gsap from 'gsap'
 
 onMounted(() => {
     window.scrollTo({
-    top: 0
-  })
+        top: 0
+    })
 })
 
 const isAppeared = ref(false);
@@ -228,7 +228,7 @@ const projects = ref([
         title: 'Developement & architecture of custom analytics webapps',
         role: 'Frontend Engineer | Lead Consultant',
         industry: 'Fincancial Services - Healthcare',
-        technologies: ['Vite','Vue3', 'Tailwind CSS', 'Javascript', 'Qlik APIs', 'Power BI-REST-APIs'],
+        technologies: ['Vite', 'Vue3', 'Tailwind CSS', 'Javascript', 'Qlik APIs', 'Power BI-REST-APIs'],
         date: 'January 2017 - March 2022',
         description: `As analytics expert and frontend engineer you can leverage the strengths of web programming and the analytics engines of leading BI vendors like Qlik and Power BI. Both offer
                         APIs to integrate already created analytics dashboard into customizable progressive web apps. This enables powerfull applications, where it is possible to design beautifull interactive dashboards with a unique analytics path for an astonishing end user experience.`

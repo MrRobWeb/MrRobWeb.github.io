@@ -1,5 +1,5 @@
 <template>
-    <div class="my-1">
+    <div class="">
         <hr class="border-1 my-8 border-gray-400 sm:w-8/12 mx-auto">
         <div class="text-center my-4 dark:text-white flex items-center justify-center">
             Data Engineering Manager at ... 
