@@ -190,7 +190,7 @@ const projects = ref([
         role: 'DevOps Engineer',
         industry: 'Energy Services',
         technologies: ['Terraform', 'AWS Codebuild|Codepipeline|Codecommit', 'Git', 'CDK', 'AWS CloudFormation'],
-        date: 'April 2023 - Today',
+        date: 'April 2022 - Today',
         description: `For a large vendor in the energy service sector a new billing platform will be introduced. 
         It is planned that dozens of public utility companies with even more legal entites will be onboarded to this new billing platform. 
         Therefore, a data migration from the legacy ERP system (SAP IS-U) to this billing platform needs to be conducted.
@@ -202,7 +202,7 @@ const projects = ref([
         role: 'Data Architect | Data Engineer',
         industry: 'Energy Services',
         technologies: ['AWS Step Functions|State Machines|Activites', 'Spark|AWS Glue', 'Presto|AWS Athena', 'AWS Lambda', 'AWS - S3|SNS|CloudWatch|DynamoDB|EC2|Cloud9'],
-        date: 'April 2023 - Today',
+        date: 'April 2022 - Today',
         description: `For a large vendor in the energy service sector a new billing platform will be introduced. 
         It is planned that dozens of public utility companies with even more legal entites will be onboarded to this new billing platform. 
         Therefore, a data migration from the legacy ERP system (SAP IS-U) to this billing platform needs to be conducted. 
@@ -216,7 +216,7 @@ const projects = ref([
         role: 'Frontend Engineer',
         industry: 'Energy Services',
         technologies: ['Vite', 'Vue3', 'Tailwind CSS', 'aws-sdk', 'AWS DynamoDB', 'AWS App Runner'],
-        date: 'April 2023 - Today',
+        date: 'April 2022 - Today',
         description: `For a large vendor in the energy service sector a new billing platform will be introduced. 
         It is planned that dozens of public utility companies with even more legal entites will be onboarded to this new billing platform. 
         Therefore, a data migration from the legacy ERP system (SAP IS-U) to this billing platform needs to be conducted. It is planned to prepare
