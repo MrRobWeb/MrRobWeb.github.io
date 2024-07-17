@@ -15,7 +15,7 @@
             <div class="flex-1 p-6 sm:mx-6 sm:px-0">
                 <span class="flex gap-4 ">
                     <a href="#" class="relative inline-flex items-center justify-center w-12 h-12 text-white rounded-full">
-                        <img src="../assets/imgs/1523715750245.jpeg" alt="user name" title="user name" width="48"
+                        <img src="../assets/imgs/IMG_7496_1.jpeg" alt="user name" title="user name" width="48"
                             height="48" class="max-w-full rounded-full" />
                     </a>
                     <div>
@@ -48,7 +48,7 @@
                     PROJECTS
                 </RouterLink>
                 <p>
-                    You can find all detailed information about work and education background on my Linkedin profile. Also you can drop me a message or reach out to me at Linkedin. 
+                    You can find all detailed information about my work and educational background on my Linkedin profile. Feel free to drop me a message or reach out to me directly through Linkedin. 
                 </p>
 
                 <RouterLink to="/contact" class="contact border-4 hover:border-blue-950 rounded">
@@ -77,8 +77,6 @@
                         <SkillChart :index="index" :skills="toolStack.skills">
 
                         </SkillChart>
-
-
                     </p>
                 </div>
             </li>
@@ -128,6 +126,98 @@ const scrollIntoViewWithOffset = (el, offset) => {
   })
 }
 const toolStacks = ref([
+{
+        title: 'Cloud',
+        subTitle: 'Leveraging IT services in the cloud',
+        icon: 'fa-solid fa-cloud',
+        description:    `Cloud engineering simply excites me!
+                        `,
+        skills: {
+            programmingLanguages: {
+                description: `I've been working with the following Cloud Providers:`,
+                values:
+                    [
+                        {
+                            name: 'AWS',
+                            skillValue: '0.8'
+                        },
+                        {
+                            name: 'Azure',
+                            skillValue: '0.3'
+                        },
+                        {
+                            name: 'GCP',
+                            skillValue: '0.2'
+                        }
+                    ]
+            },
+            frameworks: {
+                description: `I've been working with the following cloud services:`,
+                values:
+                    [
+                        {
+                            name: 'Spark | AWS Glue',
+                            skillValue: '0.95'
+                        },
+                        {
+                            name: 'Presto | AWS Athena',
+                            skillValue: '0.95'
+                        },
+                        {
+                            name: 'AWS S3 | DynamoDB',
+                            skillValue: '0.95'
+                        },
+                        {
+                            name: 'AWS Step Functions',
+                            skillValue: '0.95'
+                        },
+                        {
+                            name: 'AWS Quicksight',
+                            skillValue: '0.85'
+                        },
+                        {
+                            name: 'AWS Kinesis',
+                            skillValue: '0.8'
+                        },
+                        {
+                            name: 'AWS Redshift',
+                            skillValue: '0.7'
+                        },
+                        {
+                            name: 'Microsoft Analysis Services | Power BI',
+                            skillValue: '0.7'
+                        }
+                    ]
+            },
+            libraries: {
+                description: `These are noteworthy additional cloud skills:`,
+                values:
+                    [
+                        {
+                            name: 'boto3',
+                            skillValue: '0.95'
+                        },
+                        {
+                            name: 'awswrangler',
+                            skillValue: '0.95'
+                        },
+                        {
+                            name: 'linux',
+                            skillValue: '0.9'
+                        },
+                        {
+                            name: 'terraform',
+                            skillValue: '0.9'
+                        },
+                        {
+                            name: 'Docker',
+                            skillValue: '0.8'
+                        },
+                    ]
+            },
+        },
+
+    },
     {
         title: 'Data Engineering | Data Analytics | Machine Learning',
         subTitle: 'The art of getting insights from data.',
@@ -257,7 +347,7 @@ const toolStacks = ref([
                 values:
                     [
                         {
-                            name: 'Vue.js',
+                            name: 'Vue.js|Pinia',
                             skillValue: '0.95'
                         },
                         {
@@ -287,16 +377,12 @@ const toolStacks = ref([
                             skillValue: '0.75'
                         },
                         {
-                            name: 'React',
+                            name: 'React|Redux|Vite',
                             skillValue: '0.65'
                         },
                         {
                             name: 'Chart JS',
                             skillValue: '0.8'
-                        },
-                        {
-                            name: 'Pinia',
-                            skillValue: '0.9'
                         },
                         {
                             name: 'aws-sdk',
@@ -306,10 +392,6 @@ const toolStacks = ref([
                             name: 'webpack',
                             skillValue: '0.7'
                         },
-                        {
-                            name: '.env',
-                            skillValue: '0.9'
-                        }
                     ]
             },
         },
@@ -318,7 +400,7 @@ const toolStacks = ref([
         title: 'Backend',
         subTitle: 'The fundament of every great application.',
         icon: 'fa-solid fa-server',
-        description: `My experience regarding backend technologies is quite ok. I've been working on building REST APIs using Node.js, Flask/Django and Spring. Nevertheless, I am not a backend expert.`,
+        description: `My experience regarding backend technologies is project sufficient. I've been working on building REST APIs using Node.js, Flask/Django and Spring. Nevertheless, I am still growing expertise in this field.`,
         skills: {
             programmingLanguages: {
                 description: `Programming languages:`,
@@ -381,7 +463,7 @@ const toolStacks = ref([
         title: 'DevOps',
         subTitle: 'The philosophy to automate the integration of great devolopment work into operation.',
         icon: 'fa-solid fa-gears',
-        description: `In my opinion DevOps is not about coding, It's about knowing your business & IT operation, defining a release and update process and then building the analogue CI/CD structure as well as version management, which fits your needs.`,
+        description: `In my opinion DevOps is not about coding, it's about knowing your business & IT operation, defining a release and update process and then building the analogue CI/CD structure as well as version management, which fits your needs.`,
         skills: {
             programmingLanguages: {
                 description: `Essential tools & programming languages:`,
@@ -414,7 +496,7 @@ const toolStacks = ref([
                         },
                         {
                             name: 'Kubernetes',
-                            skillValue: '0.3'
+                            skillValue: '0.5'
                         },
                     ]
             },
