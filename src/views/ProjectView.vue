@@ -185,6 +185,19 @@ const toggleShow = (index) => {
 }
 
 const projects = ref([
+{
+        title: 'Build and maintanance of a cloud framework',
+        role: 'Senior Architect',
+        industry: '',
+        technologies: ['Python|JavaScript|Scala','Terraform', 'Docker', 'Git', 'AWS CloudFormation|CDK' ,'aws-sdk,boto3', 'AWS Services: Glue,Athena,Kinesis,Step Functions,ECR,Codebuild,Codepipeline,Codecommit,S3,SNS,CloudWatch,DynamoDB,EC2,Cloud9'],
+        date: 'April 2022 - Today',
+        description: `As a Senior Architect I am responsible to establish and maintain a cloud framework for pipelines. 
+        The aim of the framework is to create pipelines on a yaml or json based configuration structure. With the help of those configs you can
+        leverage and chain multiple cloud services into one consistent pipeline, for instance, you can chain the following kind of tasks: generative AI, data transformation, auditing, reporting, logging, validation, messaging, streaming and many more. 
+        Besides, a DevOps module was developed to deploy or remove those pipelines into multi tenant cloud environments. 
+        Therefore, I built and trained a global team of 10 engineers, including code reviews and introduced semantic versioning for a two-weekly release cycle.
+        `
+    },
     {
         title: 'CI/CD and version management implementation of dozens of data migration pipelines for more then 100 customers',
         role: 'DevOps Engineer',

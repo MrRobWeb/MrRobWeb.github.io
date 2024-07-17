@@ -20,11 +20,11 @@
                     </a>
                     <div>
                         <div class="text-xl font-medium  text-slate-700">HELLO</div>
-                        <div class="text-sm font-medium  text-slate-400"> By Robert, july 16 2023</div>
+                        <div class="text-sm font-medium  text-slate-400"> By Robert, July 16 2023</div>
                     </div>
                 </span>
                 <p>
-                    Currently, working as Data Engineering Manager. I'm a unicorn mix of business and tech, who loves to design effective, 
+                    Currently, working as Data Engineering Manager. I'm a passionate techchnology lead, who loves to design effective, 
                     minimal and beautifull software products.
                   
                 </p>
@@ -141,7 +141,7 @@ const toolStacks = ref([
                     [
                         {
                             name: 'Python',
-                            skillValue: '0.94'
+                            skillValue: '0.95'
                         },
                         {
                             name: 'SQL',
@@ -158,6 +158,10 @@ const toolStacks = ref([
                         {
                             name: 'Java',
                             skillValue: '0.7'
+                        },
+                        {
+                            name: 'SAP ABAB',
+                            skillValue: '0.6'
                         }
                     ]
             },
@@ -232,7 +236,7 @@ const toolStacks = ref([
                         },
                         {
                             name: 'Typescript',
-                            skillValue: '0.85'
+                            skillValue: '0.9'
                         },
                         {
                             name: 'Dart',
@@ -406,7 +410,7 @@ const toolStacks = ref([
                         },
                         {
                             name: 'Docker Compose',
-                            skillValue: '0.6'
+                            skillValue: '0.7'
                         },
                         {
                             name: 'Kubernetes',
@@ -420,11 +424,11 @@ const toolStacks = ref([
                     [
                         {
                             name: 'AWS - Codepipeline | Codebuild | Codecommit',
-                            skillValue: '0.9'
+                            skillValue: '0.95'
                         },
                         {
                             name: 'Azure DevOps',
-                            skillValue: '0.4'
+                            skillValue: '0.6'
                         },
                     ]
             },
