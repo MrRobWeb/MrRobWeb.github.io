@@ -28,8 +28,8 @@
                         </Teleport>
                     </p>
                 </div>
-                <transition-group v-if="!isAppeared" appear tag="ul" @before-enter="beforeEnter" @enter="enter"
-                    class="divide-y divide-gray-200 dark:divide-gray-700">
+                <transition-group v-if="!isAppeared" appear tag="ul" @before-enter="beforeEnter" @enter="enter" 
+                    class="divide-y divide-gray-200 dark:divide-gray-700 sm:w-8/12" >
                     <li v-for="(project, index) in projects" :key="project.title" :data-index="index" class="py-12">
                         <article>
                             <div class="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
