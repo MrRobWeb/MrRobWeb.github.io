@@ -1,6 +1,6 @@
 <template>
-    <div class="flex sm:w-8/12 mx-auto animate-fade">
-        <div class="flex flex-col mb-auto ">
+    <div class="flex sm:w-8/12 xs:w-full mx-auto animate-fade">
+        <div class="flex xs:w-full flex-col mb-auto ">
             <div class="divide-y divide-gray-200 dark:divide-gray-700">
                 <div class="space-y-2 md:space-y-5">
                     <div
