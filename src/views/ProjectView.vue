@@ -189,7 +189,7 @@ const projects = ref([
         title: 'Build and maintanance of a cloud framework',
         role: 'Senior Architect',
         industry: '',
-        technologies: ['Python|JavaScript|Scala','Terraform', 'Docker', 'Git', 'AWS CloudFormation|CDK' ,'aws-sdk,boto3', 'AWS Services: Glue,Athena,Kinesis,Step Functions,ECR,ECS,Codebuild,Codepipeline,Codecommit,S3,SNS,CloudWatch,DynamoDB,EC2,Cloud9'],
+        technologies: ['Python|JavaScript|Scala','Terraform', 'Docker', 'Git', 'AWS CloudFormation|CDK' ,'aws-sdk,boto3', 'AWS Data Services: Glue,Athena,Kinesis,Step Functions,S3','AWS DevOps Services: ECR,ECS,Codebuild,Codepipeline,Codecommit,SNS,CloudWatch,DynamoDB,EC2,Cloud9'],
         date: 'April 2022 - Today',
         description: `As a Senior Architect I am responsible to establish and maintain a cloud framework for cloud 
         pipelines. The aim of the framework is to create pipelines on a yaml or json based configuration structure. 
