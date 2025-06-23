@@ -15,7 +15,7 @@
             <div class="flex-1 p-6 sm:mx-6 sm:px-0">
                 <span class="flex gap-4 ">
                     <a href="#" class="relative inline-flex items-center justify-center w-12 h-12 text-white rounded-full">
-                        <img src="../assets/imgs/IMG_7496_1.jpeg" alt="user name" title="user name" width="48"
+                        <img src="../assets/imgs/IMG_7440_1.jpeg" alt="user name" title="user name" width="48"
                             height="48" class="max-w-full rounded-full" />
                     </a>
                     <div>

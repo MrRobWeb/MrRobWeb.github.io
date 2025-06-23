@@ -1,6 +1,6 @@
 <template>
     <div class="">
-        <img src="../assets/imgs/IMG_7496_1.jpeg"
+        <img src="../assets/imgs/IMG_7440_1.jpeg"
             class="w-[180px] h-[180px] sm:w-[200px] sm:h-[200px] mx-auto rounded-full shadow-md animate-fade">
         <h1 class="mt-8 mb-4 text-center text-3xl sm:text-4xl uppercase font-bold dark:text-white animate-fade">Robert Weber
         </h1>
