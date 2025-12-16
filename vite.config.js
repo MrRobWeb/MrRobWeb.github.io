@@ -12,7 +12,7 @@ export default defineConfig({
       manifest: {
         name: 'Robert Weber Portfolio',
         short_name: 'RW Portfolio',
-        description: 'Professional portfolio of Robert Weber - Data Engineering Manager',
+        description: 'Professional portfolio of Robert Weber - Technology Lead',
         theme_color: '#00205B',
         background_color: '#ffffff',
         display: 'standalone',

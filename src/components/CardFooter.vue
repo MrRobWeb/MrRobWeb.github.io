@@ -5,7 +5,7 @@
         <!-- Title/Role -->
         <div class="text-center md:text-left">
           <p class="text-corporate-dark-gray dark:text-corporate-light-gray font-medium">
-            Data Engineering Manager
+            Technology Lead
           </p>
         </div>
 

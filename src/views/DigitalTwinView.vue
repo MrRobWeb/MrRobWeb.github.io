@@ -251,7 +251,7 @@ const findRelevantContext = async (query) => {
 
 // Static context fallback
 const getStaticContext = () => {
-  return `Robert Weber is a Data Engineering Manager with expertise in agentic AI, cloud architecture,
+  return `Robert Weber is a Technology Lead with expertise in agentic AI, cloud architecture,
   data platform development, and engineering team leadership. He has over 10 years of consulting experience.
   Recent projects include an Agentic AI Platform for Travel, Enterprise Cloud Framework Development,
   and Scalable CI/CD Infrastructure. He has expertise in Consulting/Advisory, Leadership, AI/GenAI,

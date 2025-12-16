@@ -1,7 +1,7 @@
 export const bio = {
   name: 'Robert Weber',
-  title: 'Data Engineering Manager',
-  summary: 'Data Engineering Manager with expertise in agentic AI, cloud architecture, data platform development, and engineering team leadership. Delivering scalable solutions that transform how organizations leverage data for strategic decision-making.',
+  title: 'Technology Lead',
+  summary: 'Technology Lead with expertise in agentic AI, cloud architecture, data platform development, and engineering team leadership. Delivering scalable solutions that transform how organizations leverage data for strategic decision-making.',
   experience: 'Over 10 years of consulting experience following an academic foundation in applied quantum physics.',
   competencies: ['DevOps engineering', 'enterprise data architecture', 'project delivery', 'fullstack development'],
   industries: ['energy', 'human resources', 'automotive', 'aviation', 'retail', 'pharmaceutical'],

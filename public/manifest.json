@@ -1,7 +1,7 @@
 {
   "name": "Robert Weber Portfolio",
   "short_name": "RW Portfolio",
-  "description": "Professional portfolio of Robert Weber - Data Engineering Manager",
+  "description": "Professional portfolio of Robert Weber - Technology Lead",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -15,6 +15,9 @@
       "purpose": "any"
     }
   ],
-  "categories": ["portfolio", "business"],
+  "categories": [
+    "portfolio",
+    "business"
+  ],
   "lang": "en"
 }

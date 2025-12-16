@@ -29,7 +29,7 @@
           class="text-heading-3 text-corporate-mid-gray dark:text-corporate-light-gray mb-5 opacity-0 animate-fade-in"
           style="animation-delay: 0.3s"
         >
-          Data Engineering Manager
+          Technology Lead
         </p>
 
         <!-- Value Proposition - concise, impactful -->
