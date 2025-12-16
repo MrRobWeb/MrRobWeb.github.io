@@ -159,7 +159,7 @@ const suggestions = [
 // Load embeddings data
 onMounted(async () => {
   try {
-    const response = await fetch('/src/data/embeddings.json')
+    const response = await fetch('/embeddings.json')
     if (response.ok) {
       embeddingsData.value = await response.json()
     }
