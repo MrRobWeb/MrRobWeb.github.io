@@ -38,7 +38,7 @@
           class="text-body-lg text-corporate-dark-gray dark:text-corporate-light-gray max-w-xl mx-auto mb-10 opacity-0 animate-fade-in"
           style="animation-delay: 0.4s"
         >
-          Enabling enterprise data transformation through scalable cloud architecture,
+          Enabling enterprise transformation through Agentic AI solutions, scalable cloud architecture,
           engineering leadership, and strategic technical advisory.
         </p>
 

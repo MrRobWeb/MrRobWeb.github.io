@@ -17,7 +17,7 @@
 
         <div class="space-y-6">
           <p class="text-body-lg text-corporate-dark-gray dark:text-corporate-light-gray">
-            Data Engineering Manager with expertise in cloud architecture, data platform development,
+            Data Engineering Manager with expertise in agentic AI, cloud architecture, data platform development,
             and engineering team leadership. Delivering scalable solutions that transform how
             organizations leverage data for strategic decision-making.
           </p>
