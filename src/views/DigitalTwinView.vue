@@ -1,18 +1,21 @@
 <template>
-  <div class="section">
+  <div class="py-4 md:py-6">
     <div class="container-corporate">
       <div class="max-w-3xl mx-auto">
         <!-- Header -->
-        <div class="text-center mb-8">
+        <div class="text-center mb-4">
           <img
             src="../assets/imgs/profile.jpg"
             alt="Robert Weber"
-            class="w-24 h-24 md:w-32 md:h-32 mx-auto rounded-full border-4 border-corporate-light-gray dark:border-mckinsey-navy-light mb-4"
+            :class="[
+              'mx-auto rounded-full border-4 border-corporate-light-gray dark:border-mckinsey-navy-light mb-3 transition-all duration-300',
+              messages.length === 0 ? 'w-24 h-24 md:w-32 md:h-32' : 'w-12 h-12 md:w-16 md:h-16'
+            ]"
           >
-          <h1 class="text-heading-1 text-mckinsey-navy dark:text-white mb-2">
+          <h1 class="text-heading-2 text-mckinsey-navy dark:text-white mb-1">
             Digital Twin
           </h1>
-          <p class="text-body text-corporate-mid-gray">
+          <p class="text-small text-corporate-mid-gray">
             Ask me anything about my experience, projects, or expertise.
           </p>
         </div>
@@ -26,10 +29,10 @@
               <div class="welcome-icon">
                 <font-awesome-icon :icon="['fas', 'robot']" />
               </div>
-              <h3 class="text-heading-3 text-mckinsey-navy dark:text-white mb-2">
+              <h3 class="text-heading-3 text-mckinsey-navy dark:text-white mb-1">
                 Hello! I'm Robert's Digital Twin
               </h3>
-              <p class="text-body text-corporate-mid-gray mb-6">
+              <p class="text-small text-corporate-mid-gray mb-4">
                 I can answer questions about Robert's professional experience, projects, and technical expertise.
               </p>
               <div class="suggestions">
@@ -343,7 +346,7 @@ If asked about something not covered in the context, politely say you'd be happy
 .chat-container {
   @apply bg-white dark:bg-mckinsey-navy-dark rounded-lg shadow-lg overflow-hidden;
   @apply border border-corporate-light-gray dark:border-mckinsey-navy-light;
-  height: 600px;
+  height: 450px;
   display: flex;
   flex-direction: column;
 }
@@ -354,13 +357,13 @@ If asked about something not covered in the context, politely say you'd be happy
 
 /* Welcome Message */
 .welcome-message {
-  @apply text-center py-12;
+  @apply text-center py-6;
 }
 
 .welcome-icon {
-  @apply w-16 h-16 mx-auto mb-4 rounded-full;
+  @apply w-12 h-12 mx-auto mb-3 rounded-full;
   @apply bg-mckinsey-teal/10 flex items-center justify-center;
-  @apply text-mckinsey-teal text-2xl;
+  @apply text-mckinsey-teal text-xl;
 }
 
 .suggestions {

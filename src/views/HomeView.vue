@@ -1,18 +1,18 @@
 <template>
-  <section class="section">
+  <section class="py-6 md:py-8">
     <div class="container-corporate">
       <!-- Hero Section -->
-      <div class="max-w-3xl mx-auto text-center py-16 md:py-24">
+      <div class="max-w-3xl mx-auto text-center">
         <!-- Profile Image - subtle, professional -->
         <img
           src="../assets/imgs/profile.jpg"
           alt="Robert Weber"
-          class="w-40 h-40 md:w-48 md:h-48 mx-auto rounded-full border-4 border-corporate-light-gray dark:border-mckinsey-navy-light mb-8 opacity-0 animate-fade-in"
+          class="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full border-4 border-corporate-light-gray dark:border-mckinsey-navy-light mb-5 opacity-0 animate-fade-in"
         >
 
         <!-- Name - strong typographic hierarchy -->
         <h1
-          class="text-hero text-mckinsey-navy dark:text-white mb-4 opacity-0 animate-fade-in"
+          class="text-hero text-mckinsey-navy dark:text-white mb-2 opacity-0 animate-fade-in"
           style="animation-delay: 0.1s"
         >
           Robert Weber
@@ -20,13 +20,13 @@
 
         <!-- Divider - McKinsey style -->
         <div
-          class="w-16 h-1 bg-mckinsey-teal mx-auto mb-6 opacity-0 animate-fade-in"
+          class="w-16 h-1 bg-mckinsey-teal mx-auto mb-4 opacity-0 animate-fade-in"
           style="animation-delay: 0.2s"
         ></div>
 
         <!-- Role - static, professional -->
         <p
-          class="text-heading-3 text-corporate-mid-gray dark:text-corporate-light-gray mb-8 opacity-0 animate-fade-in"
+          class="text-heading-3 text-corporate-mid-gray dark:text-corporate-light-gray mb-5 opacity-0 animate-fade-in"
           style="animation-delay: 0.3s"
         >
           Data Engineering Manager
@@ -34,7 +34,7 @@
 
         <!-- Value Proposition - concise, impactful -->
         <p
-          class="text-body-lg text-corporate-dark-gray dark:text-corporate-light-gray max-w-xl mx-auto mb-10 opacity-0 animate-fade-in"
+          class="text-body-lg text-corporate-dark-gray dark:text-corporate-light-gray max-w-xl mx-auto mb-6 opacity-0 animate-fade-in"
           style="animation-delay: 0.4s"
         >
           Enabling enterprise transformation through Agentic AI solutions, scalable cloud architecture,
@@ -56,7 +56,7 @@
 
         <!-- Divider -->
         <p
-          class="text-sm text-corporate-mid-gray mt-6 opacity-0 animate-fade-in"
+          class="text-sm text-corporate-mid-gray mt-4 opacity-0 animate-fade-in"
           style="animation-delay: 0.6s"
         >
           or
@@ -64,7 +64,7 @@
 
         <!-- Digital Twin CTA -->
         <div
-          class="mt-4 opacity-0 animate-fade-in"
+          class="mt-3 opacity-0 animate-fade-in"
           style="animation-delay: 0.7s"
         >
           <RouterLink to="/digital-twin" class="btn-secondary">

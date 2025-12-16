@@ -1,20 +1,22 @@
 <template>
   <div class="page-with-sidebar">
-    <!-- Vertical Navigation -->
-    <nav class="vertical-nav">
-      <div class="nav-inner">
-        <!-- Connecting Line -->
-        <div class="nav-line"></div>
+    <!-- Section Navigation -->
+    <nav class="horizontal-nav" :style="{ top: heightHeader + 'px' }">
+      <div class="container-corporate">
+        <div class="horizontal-nav-inner">
+          <!-- Connecting Line -->
+          <div class="horizontal-nav-line"></div>
 
-        <button
-          v-for="(section, index) in sections"
-          :key="section.id"
-          @click="scrollToSection(section.id)"
-          :class="['nav-item', 'group', { active: activeSection === section.id }]"
-        >
-          <span class="nav-number">{{ String(index + 1).padStart(2, '0') }}</span>
-          <span class="nav-label">{{ section.label }}</span>
-        </button>
+          <button
+            v-for="(section, index) in sections"
+            :key="section.id"
+            @click="scrollToSection(section.id)"
+            :class="['horizontal-nav-item', 'group', { active: activeSection === section.id }]"
+          >
+            <span class="horizontal-nav-number">{{ String(index + 1).padStart(2, '0') }}</span>
+            <span class="horizontal-nav-label">{{ section.label }}</span>
+          </button>
+        </div>
       </div>
     </nav>
 
@@ -23,7 +25,7 @@
       <!-- Section 1: About -->
       <section id="about" ref="aboutRef" class="content-section">
         <div class="section-inner">
-          <div class="max-w-3xl">
+          <div class="max-w-3xl mx-auto">
             <div class="flex items-start gap-6 mb-8">
               <img
                 src="../assets/imgs/profile.jpg"
@@ -74,7 +76,7 @@
       <!-- Section 2: Functional Expertise -->
       <section id="expertise" ref="expertiseRef" class="content-section bg-corporate-off-white dark:bg-mckinsey-navy">
         <div class="section-inner">
-          <div class="max-w-5xl">
+          <div class="max-w-5xl mx-auto">
             <h2 class="text-heading-1 text-mckinsey-navy dark:text-white mb-8">
               Functional Expertise
             </h2>
@@ -171,7 +173,7 @@
       <!-- Section 3: Projects -->
       <section id="projects" ref="projectsRef" class="content-section">
         <div class="section-inner">
-          <div class="max-w-4xl">
+          <div class="max-w-4xl mx-auto">
             <h2 class="text-heading-1 text-mckinsey-navy dark:text-white mb-4">
               Projects
             </h2>
@@ -416,34 +418,43 @@ const toggleProject = (index) => {
 </script>
 
 <style scoped>
-/* Page Layout with Sidebar */
+/* Page Layout */
 .page-with-sidebar {
-  @apply flex min-h-screen;
+  @apply flex flex-col min-h-screen;
 }
 
-/* Vertical Navigation */
-.vertical-nav {
-  @apply fixed left-0 top-1/2 -translate-y-1/2 z-40;
-  @apply hidden lg:block;
-  @apply pl-4 xl:pl-8;
+/* Section Navigation */
+.horizontal-nav {
+  @apply sticky z-40;
+  @apply bg-corporate-white dark:bg-mckinsey-navy-dark;
+  @apply border-b border-corporate-light-gray dark:border-mckinsey-navy-light;
 }
 
-.nav-inner {
-  @apply relative flex flex-col gap-0;
+.horizontal-nav-inner {
+  @apply relative flex items-center justify-center gap-8 md:gap-12 py-4;
 }
 
-/* Connecting Line */
-.nav-line {
-  @apply absolute left-4 top-5 bottom-5 w-px;
+/* Horizontal Connecting Line */
+.horizontal-nav-line {
+  @apply absolute h-px;
   @apply bg-corporate-light-gray dark:bg-mckinsey-navy-light;
+  @apply left-1/2 -translate-x-1/2;
+  top: calc(1rem + 1rem); /* py-4 padding + half of circle height */
+  width: 9rem; /* spans between first and last circle centers */
 }
 
-.nav-item {
-  @apply relative flex items-center gap-4 py-4 cursor-pointer;
+@media (min-width: 768px) {
+  .horizontal-nav-line {
+    width: 13rem; /* spans between first and last circle centers */
+  }
+}
+
+.horizontal-nav-item {
+  @apply relative flex flex-col items-center gap-2 cursor-pointer;
   @apply transition-all duration-200;
 }
 
-.nav-number {
+.horizontal-nav-number {
   @apply relative z-10 w-8 h-8 flex items-center justify-center;
   @apply text-xs font-bold rounded-full;
   @apply bg-white dark:bg-mckinsey-navy-dark;
@@ -453,21 +464,19 @@ const toggleProject = (index) => {
   @apply transition-all duration-200;
 }
 
-.nav-item.active .nav-number {
+.horizontal-nav-item.active .horizontal-nav-number {
   @apply bg-mckinsey-teal border-mckinsey-teal text-white;
 }
 
-.nav-label {
-  @apply text-sm font-medium;
+.horizontal-nav-label {
+  @apply text-xs font-medium uppercase tracking-wider;
   @apply text-corporate-mid-gray;
-  @apply opacity-0 group-hover:opacity-100;
-  @apply translate-x-0 group-hover:translate-x-1;
+  @apply group-hover:text-mckinsey-navy dark:group-hover:text-white;
   @apply transition-all duration-200;
-  @apply whitespace-nowrap;
 }
 
-.nav-item.active .nav-label {
-  @apply opacity-100 text-mckinsey-navy dark:text-white font-semibold;
+.horizontal-nav-item.active .horizontal-nav-label {
+  @apply text-mckinsey-navy dark:text-white font-semibold;
 }
 
 /* Main Content */
