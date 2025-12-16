@@ -239,8 +239,9 @@ const findRelevantContext = async (query) => {
 
     similarities.sort((a, b) => b.similarity - a.similarity)
 
-    // Get top 3 most relevant chunks
-    const topChunks = similarities.slice(0, 3)
+    // Get top 5 most relevant chunks for better coverage
+    const topChunks = similarities.slice(0, 5)
+    console.log('Retrieved chunks:', topChunks.map(c => ({ title: c.title, similarity: c.similarity.toFixed(3) })))
     return topChunks.map(chunk => chunk.content).join('\n\n')
   } catch (error) {
     console.error('Error finding context:', error)
@@ -290,11 +291,11 @@ const sendMessage = async () => {
             role: 'system',
             content: `You are Robert Weber's digital twin - an AI assistant that answers questions about Robert's professional experience, projects, and expertise.
 
-Answer in first person as if you are Robert. Be friendly, professional, and concise. Base your answers on the following context about Robert:
+IMPORTANT: Answer in first person as if you are Robert. Be friendly, professional, and confident. Your answers MUST be based on the following context - look carefully for relevant information before saying you don't have experience with something:
 
 ${context}
 
-If asked about something not covered in the context, politely say you'd be happy to discuss it in person.`
+When the context mentions a technology, framework, or skill - that means Robert has experience with it. Be specific about projects and capabilities when answering.`
           },
           {
             role: 'user',
