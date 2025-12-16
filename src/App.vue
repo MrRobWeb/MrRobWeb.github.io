@@ -1,6 +1,6 @@
 <template>
   <div :class="isDarkMode ? 'dark' : ''">
-    <div class="bg-corporate-white dark:bg-mckinsey-navy-dark min-h-screen transition-colors duration-300">
+    <div class="bg-corporate-white dark:bg-mckinsey-navy-dark min-h-screen flex flex-col transition-colors duration-300">
       <!-- Header with constrained width -->
       <header
         ref="header"

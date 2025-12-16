@@ -6,6 +6,9 @@
     <RouterLink to="/about" class="nav">
       About
     </RouterLink>
+    <RouterLink to="/digital-twin" class="nav">
+      Digital Twin
+    </RouterLink>
     <RouterLink to="/contact" class="nav">
       Contact
     </RouterLink>

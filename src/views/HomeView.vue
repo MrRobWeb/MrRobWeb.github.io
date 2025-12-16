@@ -54,6 +54,25 @@
             Get in Touch
           </RouterLink>
         </div>
+
+        <!-- Divider -->
+        <p
+          class="text-sm text-corporate-mid-gray mt-6 opacity-0 animate-fade-in"
+          style="animation-delay: 0.6s"
+        >
+          or
+        </p>
+
+        <!-- Digital Twin CTA -->
+        <div
+          class="mt-4 opacity-0 animate-fade-in"
+          style="animation-delay: 0.7s"
+        >
+          <RouterLink to="/digital-twin" class="btn-secondary">
+            <font-awesome-icon :icon="['fas', 'robot']" class="mr-2" />
+            Chat with my Digital Twin
+          </RouterLink>
+        </div>
       </div>
     </div>
   </section>

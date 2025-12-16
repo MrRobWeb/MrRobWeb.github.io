@@ -15,7 +15,26 @@ This document outlines the setup and deployment process for the portfolio site.
 2. Select **Pages** in the left sidebar
 3. Under **Source**, select **GitHub Actions**
 
-### 2. Configure Workflow Permissions
+### 2. Configure Repository Secrets
+
+For features like the Digital Twin chat, you need to set up environment secrets:
+
+1. Go to **Settings** → **Secrets and variables** → **Actions**
+2. Click **New repository secret**
+3. Add the following secrets:
+
+| Secret Name | Description |
+|-------------|-------------|
+| `VITE_JINA_API_KEY` | Jina AI API key for embeddings (free at https://jina.ai/embeddings/) |
+| `VITE_OPENAI_API_KEY` | OpenAI API key for Digital Twin chat (https://platform.openai.com/api-keys) |
+
+**To add a secret:**
+1. Click **New repository secret**
+2. Enter the **Name** (e.g., `VITE_OPENAI_API_KEY`)
+3. Enter the **Secret** value (your actual API key)
+4. Click **Add secret**
+
+### 3. Configure Workflow Permissions
 
 1. Go to **Settings** → **Actions** → **General**
 2. Scroll to **Workflow permissions**
