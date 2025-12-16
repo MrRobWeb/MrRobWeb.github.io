@@ -17,8 +17,9 @@
 
         <div class="space-y-6">
           <p class="text-body-lg text-corporate-dark-gray dark:text-corporate-light-gray">
-            Currently working as Data Engineering Manager. I'm a passionate technology lead
-            who designs effective, minimal, and impactful software products.
+            Data Engineering Manager with expertise in cloud architecture, data platform development,
+            and engineering team leadership. Delivering scalable solutions that transform how
+            organizations leverage data for strategic decision-making.
           </p>
 
           <blockquote class="border-l-4 border-mckinsey-teal pl-6 my-8 italic text-corporate-mid-gray">
@@ -26,9 +27,10 @@
           </blockquote>
 
           <p class="text-body text-corporate-dark-gray dark:text-corporate-light-gray">
-            Started my academic education in applied quantum physics and moved into IT consulting
-            {{ workAge }} ago. Experience spans DevOps engineering, data architecture, project management,
-            and fullstack development across energy, HR, automotive, aviation, retail, and pharmaceutical industries.
+            {{ workAge }} of consulting experience following an academic foundation in applied quantum physics.
+            Core competencies include DevOps engineering, enterprise data architecture, project delivery,
+            and fullstack development. Industry expertise spans energy, human resources, automotive,
+            aviation, retail, and pharmaceutical sectors.
           </p>
         </div>
 
