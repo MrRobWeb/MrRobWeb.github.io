@@ -6,9 +6,6 @@
     <RouterLink to="/about" class="nav">
       About
     </RouterLink>
-    <RouterLink to="/project" class="nav">
-      Projects
-    </RouterLink>
     <RouterLink to="/contact" class="nav">
       Contact
     </RouterLink>
