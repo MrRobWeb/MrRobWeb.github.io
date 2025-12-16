@@ -1,14 +1,14 @@
 <template>
-    <div class="flex md:my-10 sm:w-8/12m mx-auto animate-fade">
-        <div class="flex flex-col mb-auto ">
-            
+    <div class="flex justify-center md:my-10 sm:w-8/12 mx-auto animate-fade">
+        <div class="flex flex-col items-center mb-auto w-full">
+
             <h1 class="mt-8 mb-4 text-center text-3xl sm:text-4xl uppercase font-bold dark:text-white animate-fade">Contact me</h1>
-            <transition-group 
+            <transition-group
                 appear
                 tag="ul"
                 @before-enter="beforeEnter"
                 @enter="enter"
-                class="grid grid-cols-2 md:gap-10 sm:gap-5 place-content-around text-center ">
+                class="grid grid-cols-2 md:gap-10 sm:gap-5 place-content-center text-center">
                 <span v-for="(icon, index) in icons" :key="icon.name" :data-index="index">
                     <a v-if="icon.href"
                         :href="icon.href" target="_blank"
@@ -18,7 +18,7 @@
                             <h5 class="my-1">{{ icon.name }}</h5>
                         </div>
                     </a>
-                    <a v-else="icon.href"
+                    <a v-else
                         @click="showModal = true" id="show-modal" 
                         target="_blank"
                         class="m-1 p-1 text-2xl hover:text-blue-600 ">
@@ -43,8 +43,7 @@
 
 <script setup> 
 
-import { text } from '@fortawesome/fontawesome-svg-core';
-import {ref, onMounted} from 'vue'
+import { ref, onMounted } from 'vue'
 import gsap from 'gsap'
 import Modal from '../components/Modal.vue'
 
@@ -59,7 +58,7 @@ const icons = ref([
     {name: 'Message', icon: 'fa-solid fa-envelope'},
     {name: 'linkedin', icon: 'fa-brands fa-linkedin', href: 'https://www.linkedin.com/in/robert-w-300922158/'},
     {name: 'github', icon: 'fa-brands fa-github', href: 'https://github.com/MrRobWeb'},
-    {name: 'gitlab', icon: 'fa-brands fa-gitlab', href: 'https://www.linkedin.com/in/robert-w-300922158/'},
+    {name: 'gitlab', icon: 'fa-brands fa-gitlab', href: 'https://gitlab.com/MrRobWeb'},
 ])
 
 const beforeEnter = (el) => {

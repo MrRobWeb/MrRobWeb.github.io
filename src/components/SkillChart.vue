@@ -26,14 +26,12 @@
 </template>
 
 <script setup>
-import { ref, onActivated, onUpdated, onUnmounted, onMounted, onBeforeMount, watch } from 'vue'
+import { ref, onUnmounted, onMounted, watch } from 'vue'
 import { storeToRefs } from 'pinia';
 import { Chart } from 'chart.js/auto';
 import { useAppStore } from '../stores/appStore.js'
 
-// access the `store` variable anywhere in the component ✨
 const { theme } = storeToRefs(useAppStore());
-console.info(theme.value);
 watch(theme, (theme, prevTheme) => {
   programmingLanguagesChart.value.destroy();
   frameworksChart.value.destroy();
@@ -70,15 +68,11 @@ const createSkillCharts = (theme) => {
   let rgba_value;
   let font_color;
   if (theme === 'light') {
-    console.info('Create Chart for light theme.')
     rgba_value = '0';
     font_color = 'black';
-
   } else {
-    console.info('Create Chart for dark theme.')
     rgba_value = '255';
     font_color = 'white';
-
   }
   for (const key in props.skills) {
     if (Object.hasOwnProperty.call(props.skills, key)) {
@@ -143,5 +137,11 @@ const createSkillCharts = (theme) => {
 
 onMounted(() => {
   createSkillCharts(theme.value);
+})
+
+onUnmounted(() => {
+  if (programmingLanguagesChart.value) programmingLanguagesChart.value.destroy();
+  if (frameworksChart.value) frameworksChart.value.destroy();
+  if (librariesChart.value) librariesChart.value.destroy();
 })
 </script>

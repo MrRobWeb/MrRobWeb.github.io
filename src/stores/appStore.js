@@ -12,12 +12,13 @@ function dateAgo(date) {
 }
 
 export const useAppStore = defineStore('app', {
-    state: () => ({ 
+    state: () => ({
         theme: localStorage.theme,
         heightHeader: 0,
         workAge: dateAgo('2014/08/01'),
+    }),
     getters: {
     },
     actions: {
     },
-  })})
+})
