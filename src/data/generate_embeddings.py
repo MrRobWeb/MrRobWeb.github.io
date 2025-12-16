@@ -11,10 +11,15 @@ Usage:
     2. Create a .env file with JINA_API_KEY=your_api_key
     3. Run: python generate_embeddings.py
     4. Output: embeddings.json (used by the Digital Twin chat)
+
+Data Sources:
+    - projects.js: Project portfolio data
+    - skills.js: Technical skills and tool stacks
 """
 
 import json
 import os
+import re
 import requests
 from pathlib import Path
 
@@ -73,218 +78,276 @@ def get_embedding(text: str) -> list[float]:
     return result["data"][0]["embedding"]
 
 
+def parse_js_array(js_content: str) -> list[dict]:
+    """Parse a JavaScript array export into Python objects."""
+    # Remove the export statement and get just the array
+    array_match = re.search(r'export\s+const\s+\w+\s*=\s*(\[[\s\S]*\]);?\s*$', js_content)
+    if not array_match:
+        raise ValueError("Could not find exported array in JS file")
+
+    array_str = array_match.group(1)
+
+    # Step 1: Replace template literals with placeholder tokens
+    template_literals = []
+    def save_template_literal(match):
+        content = match.group(1)
+        idx = len(template_literals)
+        template_literals.append(content)
+        return f'{{{{TEMPLATE_{idx}}}}}'
+
+    array_str = re.sub(r'`([^`]*)`', save_template_literal, array_str)
+
+    # Step 2: Replace single-quoted strings with placeholder tokens
+    single_quoted = []
+    def save_single_quoted(match):
+        content = match.group(1)
+        idx = len(single_quoted)
+        single_quoted.append(content)
+        return f'{{{{SINGLE_{idx}}}}}'
+
+    array_str = re.sub(r"'([^']*)'", save_single_quoted, array_str)
+
+    # Step 3: Now safely add quotes around property names (only unquoted identifiers followed by :)
+    array_str = re.sub(r'([{,]\s*)(\w+)(\s*:)', r'\1"\2"\3', array_str)
+
+    # Step 4: Remove trailing commas before ] or }
+    array_str = re.sub(r',(\s*[}\]])', r'\1', array_str)
+
+    # Step 5: Restore single-quoted strings as double-quoted JSON strings
+    for idx, content in enumerate(single_quoted):
+        escaped = content.replace('\\', '\\\\').replace('"', '\\"')
+        array_str = array_str.replace(f'{{{{SINGLE_{idx}}}}}', f'"{escaped}"')
+
+    # Step 6: Restore template literals as double-quoted JSON strings
+    for idx, content in enumerate(template_literals):
+        escaped = content.replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n')
+        array_str = array_str.replace(f'{{{{TEMPLATE_{idx}}}}}', f'"{escaped}"')
+
+    try:
+        return json.loads(array_str)
+    except json.JSONDecodeError as e:
+        print(f"JSON parse error: {e}")
+        print(f"Problematic content around error: {array_str[max(0, e.pos-100):e.pos+100]}")
+        raise
+
+
 def create_project_chunks() -> list[dict]:
-    """Create text chunks from projects data."""
-    projects = [
-        {
-            "id": "project-1",
+    """Create text chunks from projects.js file."""
+    projects_path = Path(__file__).parent / "projects.js"
+
+    with open(projects_path, "r") as f:
+        js_content = f.read()
+
+    projects_data = parse_js_array(js_content)
+
+    chunks = []
+    for i, project in enumerate(projects_data):
+        title = project.get("title", "")
+        role = project.get("role", "")
+        industry = project.get("industry", "")
+        date = project.get("date", "")
+        description = project.get("description", "")
+
+        # Handle technologies - can be array of strings
+        technologies = project.get("technologies", [])
+        if isinstance(technologies, list):
+            tech_str = ", ".join(technologies)
+        else:
+            tech_str = str(technologies)
+
+        content = f"""{title} - {role} ({date}).
+{description}
+Technologies: {tech_str}.
+Industry: {industry}."""
+
+        chunks.append({
+            "id": f"project-{i+1}",
             "type": "project",
-            "title": "Agentic AI Platform for Travel Industry",
-            "role": "Lead Architect & Project Lead",
-            "industry": "Travel",
-            "date": "June 2024 - Present",
-            "content": """Agentic AI Platform for Travel Industry - Lead Architect & Project Lead (June 2024 - Present).
-            Architected and developed a centrally managed Agentic AI platform leveraging Retrieval-Augmented Generation (RAG)
-            to enable natural language itinerary creation and editing. Designed a multi-layer architecture with React/TypeScript
-            frontend, FastAPI backend with Pydantic data validation, and Langgraph-orchestrated agent workflows powered by OpenAI.
-            Implemented vector search capabilities using Supabase PostgreSQL and Redis-based state management for agent persistence.
-            Deployed on AWS EKS with comprehensive CI/CD pipelines and observability stack.
-            Technologies: TypeScript, React, MUI, Tailwind, Python, FastAPI, Pydantic, Langgraph, Langchain, OpenAI,
-            Supabase, PostgreSQL, Redis, AWS, Docker, Kubernetes (EKS), Prometheus, Grafana, Sentry.
-            Impact: Enabled travel consultants to build complex itineraries through conversational AI, reducing planning time by 70%."""
-        },
-        {
-            "id": "project-2",
-            "type": "project",
-            "title": "Enterprise Cloud Framework Development",
-            "role": "Lead Architect & Engineering Manager",
-            "industry": "Cross-Industry",
-            "date": "April 2022 - May 2025",
-            "content": """Enterprise Cloud Framework Development - Lead Architect & Engineering Manager (April 2022 - May 2025).
-            Led the design and implementation of an enterprise-grade cloud framework enabling configuration-driven pipeline orchestration.
-            Architected a modular system supporting generative AI, data transformation, validation, and streaming workloads through
-            declarative YAML/JSON specifications. Built and mentored a global team of 10 engineers, establishing code review standards
-            and implementing semantic versioning with bi-weekly release cycles.
-            Technologies: Python, JavaScript, Scala, Terraform, Docker, AWS CDK, CloudFormation, AWS Data Services, AWS DevOps Suite.
-            Impact: Reduced pipeline development time by 60% and standardized cloud operations across the organization."""
-        },
-        {
-            "id": "project-3",
-            "type": "project",
-            "title": "Scalable CI/CD Infrastructure",
-            "role": "Lead DevOps Engineer",
-            "industry": "Energy Services",
-            "date": "April 2022 - May 2025",
-            "content": """Scalable CI/CD Infrastructure - Lead DevOps Engineer (April 2022 - May 2025).
-            Designed and delivered a "build once, deploy everywhere" CI/CD architecture supporting 100+ concurrent deployments
-            for a major energy sector billing platform migration. Engineered automated infrastructure provisioning and teardown
-            capabilities using Terraform and AWS native services. Integrated seamless framework updates across all deployment instances.
-            Technologies: Terraform, AWS DevOps Suite, Docker, AWS CDK, Infrastructure as Code.
-            Impact: Achieved 95% deployment automation, reducing manual intervention and ensuring consistent, repeatable releases."""
-        },
-        {
-            "id": "project-4",
-            "type": "project",
-            "title": "Data Pipeline Configuration Platform",
-            "role": "Frontend Engineer",
-            "industry": "Energy Services",
-            "date": "April 2022 - May 2025",
-            "content": """Data Pipeline Configuration Platform - Frontend Engineer (April 2022 - May 2025).
-            Architected and developed a progressive web application enabling non-technical users to configure complex data migration pipelines.
-            Supported the onboarding of 100+ legal entities to a new billing platform through self-service pipeline configuration.
-            Leveraged serverless architecture with AWS App Runner and DynamoDB for scalability and cost efficiency.
-            Technologies: Vue 3, Vite, Tailwind CSS, AWS DynamoDB, AWS App Runner.
-            Impact: Reduced pipeline configuration time from days to hours, empowering business users with direct control."""
-        },
-        {
-            "id": "project-5",
-            "type": "project",
-            "title": "Custom Analytics Solutions",
-            "role": "Frontend Engineer & Lead Consultant",
-            "industry": "Financial Services, Healthcare",
-            "date": "January 2017 - March 2022",
-            "content": """Custom Analytics Solutions - Frontend Engineer & Lead Consultant (January 2017 - March 2022).
-            Delivered bespoke analytics applications integrating enterprise BI platforms (Qlik, Power BI) with custom web interfaces.
-            Designed intuitive user experiences combining powerful analytical capabilities with modern frontend technologies.
-            Enabled stakeholders to interact with data through tailored dashboards optimized for their specific decision-making workflows.
-            Technologies: Vue 3, React, Next.js, Qlik APIs, Power BI REST APIs, JavaScript, Tailwind CSS.
-            Impact: Increased analytics adoption rates by 40% through improved user experience and accessibility."""
-        },
-        {
-            "id": "project-6",
-            "type": "project",
-            "title": "Enterprise Data Analytics Architecture",
-            "role": "Data Engineer & Lead Consultant",
-            "industry": "Manufacturing, Automotive, Financial Services, Healthcare, Public Sector",
-            "date": "September 2014 - March 2022",
-            "content": """Enterprise Data Analytics Architecture - Data Engineer & Lead Consultant (September 2014 - March 2022).
-            Led end-to-end implementation of enterprise analytics architectures for Fortune 500 clients.
-            Managed full project lifecycle from infrastructure sizing and software deployment to ERP/CRM data integration
-            (SAP, Microsoft Dynamics, Salesforce). Designed semantic data models and developed executive dashboards
-            with role-based access controls for sensitive data.
-            Technologies: Qlik, Microsoft SSAS & SSIS, Power BI, AWS, Python.
-            Impact: Delivered analytics capabilities to 10,000+ end users across multiple organizations, driving data-informed decision making."""
-        },
-        {
-            "id": "project-7",
-            "type": "project",
-            "title": "Data Analytics Training Program",
-            "role": "Trainer",
-            "industry": "Cross-Industry",
-            "date": "September 2014 - March 2022",
-            "content": """Data Analytics Training Program - Trainer (September 2014 - March 2022).
-            Developed and delivered comprehensive training programs in data analytics and engineering for global audiences.
-            Created curriculum covering dashboard design principles, data modeling fundamentals, and advanced ETL techniques.
-            Conducted deep-dive technical sessions on Qlik platform administration and optimization.
-            Technologies: Data Literacy, BI Design Principles, Data Modeling, ETL Best Practices, Qlik Platform.
-            Impact: Trained 500+ professionals worldwide, building organizational data literacy and technical capabilities."""
-        }
-    ]
-    return projects
+            "title": title,
+            "role": role,
+            "industry": industry,
+            "date": date,
+            "content": content
+        })
+
+    print(f"  Loaded {len(chunks)} projects from projects.js")
+    return chunks
+
+
+def create_skills_chunks() -> list[dict]:
+    """Create text chunks from skills.js file."""
+    skills_path = Path(__file__).parent / "skills.js"
+
+    with open(skills_path, "r") as f:
+        js_content = f.read()
+
+    skills_data = parse_js_array(js_content)
+
+    chunks = []
+    for i, stack in enumerate(skills_data):
+        title = stack.get("title", "")
+        sub_title = stack.get("subTitle", "")
+        description = stack.get("description", "")
+        skills = stack.get("skills", {})
+
+        # Extract all skills from nested structure
+        all_skills = []
+        for category, category_data in skills.items():
+            category_desc = category_data.get("description", "")
+            values = category_data.get("values", [])
+            skill_names = [v.get("name", "") for v in values]
+            skill_levels = [(v.get("name", ""), v.get("skillValue", "0")) for v in values]
+
+            # Group by proficiency level
+            high_skills = [name for name, level in skill_levels if float(level) >= 0.8]
+            medium_skills = [name for name, level in skill_levels if 0.5 <= float(level) < 0.8]
+
+            all_skills.append({
+                "category": category,
+                "description": category_desc,
+                "skills": skill_names,
+                "high_proficiency": high_skills,
+                "medium_proficiency": medium_skills
+            })
+
+        # Build content string
+        skills_text = ""
+        for skill_cat in all_skills:
+            cat_name = skill_cat["category"].replace("programmingLanguages", "Programming Languages").replace("frameworks", "Frameworks").replace("libraries", "Libraries & Tools")
+            skills_text += f"\n{cat_name}: {', '.join(skill_cat['skills'])}."
+            if skill_cat["high_proficiency"]:
+                skills_text += f" High proficiency: {', '.join(skill_cat['high_proficiency'])}."
+
+        content = f"""{title} - {sub_title}
+{description}
+Technical Skills:{skills_text}"""
+
+        chunks.append({
+            "id": f"skills-{i+1}",
+            "type": "skills",
+            "title": title,
+            "subTitle": sub_title,
+            "content": content
+        })
+
+    print(f"  Loaded {len(chunks)} skill stacks from skills.js")
+    return chunks
 
 
 def create_expertise_chunks() -> list[dict]:
-    """Create text chunks from expertise/skills data."""
-    expertise = [
-        {
-            "id": "expertise-1",
+    """Create text chunks from expertise.js file."""
+    expertise_path = Path(__file__).parent / "expertise.js"
+
+    with open(expertise_path, "r") as f:
+        js_content = f.read()
+
+    expertise_data = parse_js_array(js_content)
+
+    chunks = []
+    for i, area in enumerate(expertise_data):
+        title = area.get("title", "")
+        subtitle = area.get("subtitle", "")
+        key_message = area.get("keyMessage", "")
+        capabilities = area.get("capabilities", [])
+        technologies = area.get("technologies", [])
+
+        capabilities_text = "\n".join([f"- {cap}" for cap in capabilities])
+        tech_text = ", ".join(technologies)
+
+        content = f"""{subtitle} - {title}
+{key_message}
+
+Key capabilities:
+{capabilities_text}
+
+Core technologies: {tech_text}."""
+
+        chunks.append({
+            "id": f"expertise-{i+1}",
             "type": "expertise",
-            "title": "Consulting / Advisory",
-            "content": """Consulting and Advisory Expertise - Driving Strategic Technology Decisions.
-            Robert partners with stakeholders to translate business objectives into technology roadmaps and actionable implementation strategies.
-            Key capabilities:
-            - Conduct technology assessments and define modernization roadmaps for enterprises
-            - Advise C-level executives on data strategy, cloud adoption, and digital transformation
-            - Lead vendor evaluations and technology selection for strategic initiatives
-            - Deliver training programs building organizational technical capabilities
-            Core skills: Strategy, Roadmapping, Stakeholder Management, Vendor Evaluation, Training, Digital Transformation, Change Management, Business Analysis."""
-        },
-        {
-            "id": "expertise-2",
-            "type": "expertise",
-            "title": "Leadership",
-            "content": """Leadership Expertise - Leading High-Performance Teams.
-            Robert builds and mentors global engineering teams that deliver excellence through collaboration, clear standards, and continuous improvement.
-            Key capabilities:
-            - Build and scale distributed engineering teams across multiple time zones
-            - Establish code review standards, release processes, and engineering best practices
-            - Mentor engineers through technical growth paths and career development
-            - Drive agile delivery with bi-weekly release cycles and semantic versioning
-            Core skills: Team Building, Agile, Scrum, Code Review, Mentoring, Release Management, OKRs, Performance Management."""
-        },
-        {
-            "id": "expertise-3",
-            "type": "expertise",
-            "title": "Agentic AI / Generative AI",
-            "content": """Agentic AI and Generative AI Expertise - Architecting Agentic AI Solutions.
-            Robert designs production-grade AI systems that transform business operations through intelligent automation and natural language interfaces.
-            Key capabilities:
-            - Build multi-agent workflows using Langgraph and Langchain for complex task orchestration
-            - Implement RAG architectures with vector search for context-aware AI responses
-            - Deploy conversational interfaces enabling natural language interaction with enterprise systems
-            - Integrate LLM orchestration with existing data pipelines and business logic
-            Core technologies: Langgraph, Langchain, OpenAI, RAG, Vector Search, Supabase, FastAPI, Redis."""
-        },
-        {
-            "id": "expertise-4",
-            "type": "expertise",
-            "title": "Cloud Development",
-            "content": """Cloud Development Expertise - Engineering Cloud-Native Platforms.
-            Robert builds scalable, secure infrastructure on AWS using Infrastructure as Code principles and modern DevOps practices.
-            Key capabilities:
-            - Design enterprise CI/CD pipelines supporting 100+ concurrent deployments
-            - Implement Infrastructure as Code with Terraform and AWS CDK
-            - Architect container orchestration with Docker and Kubernetes (EKS)
-            - Establish comprehensive observability with Prometheus, Grafana, and CloudWatch
-            Core technologies: AWS, Terraform, Docker, Kubernetes, CDK, CloudFormation, GitHub Actions, Prometheus."""
-        },
-        {
-            "id": "expertise-5",
-            "type": "expertise",
-            "title": "Fullstack Software Engineering",
-            "content": """Fullstack Software Engineering Expertise - Delivering Full-Stack Applications.
-            Robert develops modern web applications from concept to deployment with focus on user experience and scalable architectures.
-            Key capabilities:
-            - Build responsive frontends with React and Vue.js using TypeScript
-            - Develop backend services with Python/FastAPI and Node.js
-            - Implement serverless architectures with AWS Lambda and App Runner
-            - Create progressive web applications with offline-first capabilities
-            Core technologies: React, Vue.js, TypeScript, FastAPI, Node.js, Tailwind, Vite, PostgreSQL."""
-        },
-        {
-            "id": "expertise-6",
-            "type": "expertise",
-            "title": "Data Engineering / Data Analytics",
-            "content": """Data Engineering and Data Analytics Expertise - Transforming Data into Insights.
-            Robert architects enterprise data platforms that enable data-informed decision making across organizations.
-            Key capabilities:
-            - Design ETL pipelines processing billions of records with Spark and AWS Glue
-            - Build semantic data models and executive dashboards for stakeholders
-            - Implement self-service analytics platforms with Qlik and Power BI
-            - Deliver analytics capabilities to 10,000+ end users across enterprises
-            Core technologies: Python, Spark, SQL, AWS Glue, Athena, Qlik, Power BI, Redshift."""
-        }
-    ]
-    return expertise
+            "title": subtitle,
+            "content": content
+        })
+
+    print(f"  Loaded {len(chunks)} expertise areas from expertise.js")
+    return chunks
+
+
+def parse_js_object(js_content: str, var_name: str) -> dict:
+    """Parse a JavaScript object export into Python dict."""
+    # Match: export const varName = { ... };
+    pattern = rf'export\s+const\s+{var_name}\s*=\s*(\{{[^;]*?\}});'
+    obj_match = re.search(pattern, js_content, re.DOTALL)
+    if not obj_match:
+        raise ValueError(f"Could not find exported object '{var_name}' in JS file")
+
+    obj_str = obj_match.group(1)
+
+    # Step 1: Replace single-quoted strings with placeholder tokens
+    single_quoted = []
+    def save_single_quoted(match):
+        content = match.group(1)
+        idx = len(single_quoted)
+        single_quoted.append(content)
+        return f'{{{{SINGLE_{idx}}}}}'
+
+    obj_str = re.sub(r"'([^']*)'", save_single_quoted, obj_str)
+
+    # Step 2: Add quotes around property names
+    obj_str = re.sub(r'([{,]\s*)(\w+)(\s*:)', r'\1"\2"\3', obj_str)
+
+    # Step 3: Remove trailing commas
+    obj_str = re.sub(r',(\s*[}\]])', r'\1', obj_str)
+
+    # Step 4: Restore single-quoted strings as double-quoted
+    for idx, content in enumerate(single_quoted):
+        escaped = content.replace('\\', '\\\\').replace('"', '\\"')
+        obj_str = obj_str.replace(f'{{{{SINGLE_{idx}}}}}', f'"{escaped}"')
+
+    try:
+        return json.loads(obj_str)
+    except json.JSONDecodeError as e:
+        print(f"JSON parse error: {e}")
+        print(f"Problematic content: {obj_str[:500]}")
+        raise
 
 
 def create_bio_chunks() -> list[dict]:
-    """Create text chunks from biography data."""
-    bio = [
-        {
-            "id": "bio-1",
-            "type": "biography",
-            "title": "About Robert Weber",
-            "content": """About Robert Weber - Data Engineering Manager.
-            Robert Weber is a Data Engineering Manager with expertise in agentic AI, cloud architecture, data platform development,
-            and engineering team leadership. He delivers scalable solutions that transform how organizations leverage data for strategic decision-making.
-            Robert has over 10 years of consulting experience following an academic foundation in applied quantum physics.
-            Core competencies include DevOps engineering, enterprise data architecture, project delivery, and fullstack development.
-            Industry expertise spans energy, human resources, automotive, aviation, retail, and pharmaceutical sectors.
-            Robert's philosophy: "Learning never exhausts the mind." — Leonardo da Vinci"""
-        }
-    ]
-    return bio
+    """Create text chunks from bio in expertise.js file."""
+    expertise_path = Path(__file__).parent / "expertise.js"
+
+    with open(expertise_path, "r") as f:
+        js_content = f.read()
+
+    bio_data = parse_js_object(js_content, "bio")
+
+    name = bio_data.get("name", "")
+    title = bio_data.get("title", "")
+    summary = bio_data.get("summary", "")
+    experience = bio_data.get("experience", "")
+    competencies = bio_data.get("competencies", [])
+    industries = bio_data.get("industries", [])
+    philosophy = bio_data.get("philosophy", "")
+
+    competencies_text = ", ".join(competencies)
+    industries_text = ", ".join(industries)
+
+    content = f"""About {name} - {title}.
+{summary}
+{experience}
+Core competencies include {competencies_text}.
+Industry expertise spans {industries_text} sectors.
+{name}'s philosophy: {philosophy}"""
+
+    chunks = [{
+        "id": "bio-1",
+        "type": "biography",
+        "title": f"About {name}",
+        "content": content
+    }]
+
+    print(f"  Loaded bio from expertise.js")
+    return chunks
 
 
 def main():
@@ -294,6 +357,7 @@ def main():
     # Collect all chunks
     chunks = []
     chunks.extend(create_project_chunks())
+    chunks.extend(create_skills_chunks())
     chunks.extend(create_expertise_chunks())
     chunks.extend(create_bio_chunks())
 
