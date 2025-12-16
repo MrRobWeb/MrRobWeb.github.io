@@ -51,10 +51,9 @@ The site deploys automatically when pushing to the `main` branch. The workflow:
 1. Checks out the code
 2. Sets up Node.js 20 with npm caching
 3. Installs dependencies via `npm ci`
-4. Runs tests via `npm run test:run`
-5. Builds the production bundle via `npm run build`
-6. Uploads the `dist` folder as an artifact
-7. Deploys to GitHub Pages
+4. Builds the production bundle via `npm run build`
+5. Uploads the `dist` folder as an artifact
+6. Deploys to GitHub Pages
 
 ### Manual Deployment
 
