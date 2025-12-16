@@ -5,9 +5,8 @@
       <div class="max-w-3xl mx-auto text-center py-16 md:py-24">
         <!-- Profile Image - subtle, professional -->
         <img
-          src="../assets/imgs/IMG_7440_1.jpeg"
+          src="../assets/imgs/profile.jpg"
           alt="Robert Weber"
-          loading="lazy"
           class="w-40 h-40 md:w-48 md:h-48 mx-auto rounded-full border-4 border-corporate-light-gray dark:border-mckinsey-navy-light mb-8 opacity-0 animate-fade-in"
         >
 

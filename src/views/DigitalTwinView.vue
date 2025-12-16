@@ -5,7 +5,7 @@
         <!-- Header -->
         <div class="text-center mb-8">
           <img
-            src="../assets/imgs/IMG_7440_1.jpeg"
+            src="../assets/imgs/profile.jpg"
             alt="Robert Weber"
             class="w-24 h-24 md:w-32 md:h-32 mx-auto rounded-full border-4 border-corporate-light-gray dark:border-mckinsey-navy-light mb-4"
           >
@@ -53,7 +53,7 @@
               <div class="message-avatar">
                 <img
                   v-if="message.role === 'assistant'"
-                  src="../assets/imgs/IMG_7440_1.jpeg"
+                  src="../assets/imgs/profile.jpg"
                   alt="Robert"
                   class="avatar-img"
                 >
@@ -78,7 +78,7 @@
             <div v-if="isLoading" class="message assistant">
               <div class="message-avatar">
                 <img
-                  src="../assets/imgs/IMG_7440_1.jpeg"
+                  src="../assets/imgs/profile.jpg"
                   alt="Robert"
                   class="avatar-img"
                 >

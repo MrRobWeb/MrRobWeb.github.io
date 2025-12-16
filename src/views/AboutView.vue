@@ -26,7 +26,7 @@
           <div class="max-w-3xl">
             <div class="flex items-start gap-6 mb-8">
               <img
-                src="../assets/imgs/IMG_7440_1.jpeg"
+                src="../assets/imgs/profile.jpg"
                 alt="Robert Weber"
                 class="w-20 h-20 md:w-24 md:h-24 rounded-full flex-shrink-0"
               >
