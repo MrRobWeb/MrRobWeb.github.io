@@ -8,30 +8,20 @@ export default defineConfig({
     vue(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['dossier.svg', 'apple-touch-icon.png', 'icons/*.png'],
+      includeAssets: ['dossier.svg'],
       manifest: {
         name: 'Robert Weber Portfolio',
         short_name: 'RW Portfolio',
-        description: 'Professional portfolio of Robert Weber - Data Engineer, Fullstack Developer, DevOps Engineer',
-        theme_color: '#0F172A',
+        description: 'Professional portfolio of Robert Weber - Data Engineering Manager',
+        theme_color: '#00205B',
         background_color: '#ffffff',
         display: 'standalone',
         icons: [
           {
-            src: 'icons/icon-192x192.png',
-            sizes: '192x192',
-            type: 'image/png'
-          },
-          {
-            src: 'icons/icon-512x512.png',
-            sizes: '512x512',
-            type: 'image/png'
-          },
-          {
-            src: 'icons/icon-512x512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'any maskable'
+            src: 'dossier.svg',
+            sizes: 'any',
+            type: 'image/svg+xml',
+            purpose: 'any'
           }
         ]
       },

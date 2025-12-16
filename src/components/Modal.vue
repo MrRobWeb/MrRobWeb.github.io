@@ -155,6 +155,7 @@ watch(() => props.show, (newVal) => {
       aria-labelledby="modal-title"
       @keydown="handleKeydown"
     >
+      <!-- Captcha Step -->
       <div v-if="!isCaptchaSuccess" ref="modalContainer" class="modal-container">
         <div class="modal-header">
           <h3 id="modal-title">
@@ -165,18 +166,18 @@ watch(() => props.show, (newVal) => {
         <div class="modal-body">
           <slot name="body"></slot>
           <div class="mb-4">
-            <h2 class="block text-gray-700 font-bold mb-2">
+            <h2 class="text-heading-3 text-mckinsey-navy mb-2">
               Are you a robot?
             </h2>
 
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="captcha-input">
+            <label class="block text-corporate-dark-gray text-sm font-medium mb-2" for="captcha-input">
               Before you can send me a message you need to solve the captcha:
             </label>
             <input
               ref="captchaInput"
               v-model="inputText"
               id="captcha-input"
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-500"
+              class="w-full py-2 px-3 border border-corporate-light-gray rounded text-corporate-dark-gray leading-tight focus:outline-none focus:ring-2 focus:ring-mckinsey-teal focus:border-mckinsey-teal"
               type="text"
               name="captcha"
               required
@@ -184,22 +185,22 @@ watch(() => props.show, (newVal) => {
               autocomplete="off"
               aria-describedby="captcha-hint"
             >
-            <p id="captcha-hint" class="text-xs text-gray-500 mt-1">Type the characters shown in the image</p>
+            <p id="captcha-hint" class="text-xs text-corporate-mid-gray mt-1">Type the characters shown in the image</p>
           </div>
           <Captcha @captcha="setCaptchaValue" aria-label="CAPTCHA verification image"></Captcha>
         </div>
 
-        <div class="modal-footer flex flex-row justify-between">
+        <div class="modal-footer">
           <slot name="footer">
             <button
-              class="inline-block rounded bg-neutral-50 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-800 shadow-[0_4px_9px_-4px_#cbcbcb] transition duration-150 ease-in-out hover:bg-neutral-100 hover:shadow-[0_8px_9px_-4px_rgba(203,203,203,0.3),0_4px_18px_0_rgba(203,203,203,0.2)] focus:bg-neutral-100 focus:shadow-[0_8px_9px_-4px_rgba(203,203,203,0.3),0_4px_18px_0_rgba(203,203,203,0.2)] focus:outline-none focus:ring-2 focus:ring-blue-500 active:bg-neutral-200"
+              class="btn-secondary text-sm"
               @click="closeMessage"
               type="button"
             >
               Cancel
             </button>
             <button
-              class="inline-block rounded bg-neutral-800 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-50 shadow-[0_4px_9px_-4px_rgba(51,45,45,0.7)] transition duration-150 ease-in-out hover:bg-neutral-700 focus:bg-neutral-700 focus:outline-none focus:ring-2 focus:ring-blue-500 active:bg-neutral-900 dark:bg-neutral-900 dark:hover:bg-neutral-800"
+              class="btn-primary text-sm"
               @click="validateCaptcha"
               type="button"
             >
@@ -209,6 +210,7 @@ watch(() => props.show, (newVal) => {
         </div>
       </div>
 
+      <!-- Contact Form Step -->
       <div v-if="isCaptchaSuccess && !submitSuccess" ref="modalContainer" class="modal-container">
         <div class="modal-header">
           <h3 id="modal-title">
@@ -219,19 +221,19 @@ watch(() => props.show, (newVal) => {
         <div class="modal-body">
           <slot name="body"></slot>
 
-          <div v-if="submitError" class="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded" role="alert">
+          <div v-if="submitError" class="mb-4 p-3 bg-red-50 border border-red-300 text-red-700 rounded text-sm" role="alert">
             {{ submitError }}
           </div>
 
           <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="contact-name">
+            <label class="block text-corporate-dark-gray text-sm font-medium mb-2" for="contact-name">
               Name <span class="text-red-500">*</span>
             </label>
             <input
               ref="nameInput"
               v-model="formName"
               id="contact-name"
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-500"
+              class="w-full py-2 px-3 border border-corporate-light-gray rounded text-corporate-dark-gray leading-tight focus:outline-none focus:ring-2 focus:ring-mckinsey-teal focus:border-mckinsey-teal"
               :class="{ 'border-red-500': formErrors.name }"
               type="text"
               name="name"
@@ -244,13 +246,13 @@ watch(() => props.show, (newVal) => {
             <p v-if="formErrors.name" id="name-error" class="text-red-500 text-xs mt-1">{{ formErrors.name }}</p>
           </div>
           <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="contact-email">
+            <label class="block text-corporate-dark-gray text-sm font-medium mb-2" for="contact-email">
               E-mail <span class="text-red-500">*</span>
             </label>
             <input
               v-model="formEmail"
               id="contact-email"
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-500"
+              class="w-full py-2 px-3 border border-corporate-light-gray rounded text-corporate-dark-gray leading-tight focus:outline-none focus:ring-2 focus:ring-mckinsey-teal focus:border-mckinsey-teal"
               :class="{ 'border-red-500': formErrors.email }"
               type="email"
               name="email"
@@ -263,7 +265,7 @@ watch(() => props.show, (newVal) => {
             <p v-if="formErrors.email" id="email-error" class="text-red-500 text-xs mt-1">{{ formErrors.email }}</p>
           </div>
           <div class="relative mb-3">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="contact-message">
+            <label class="block text-corporate-dark-gray text-sm font-medium mb-2" for="contact-message">
               Message <span class="text-red-500">*</span>
             </label>
             <textarea
@@ -271,7 +273,7 @@ watch(() => props.show, (newVal) => {
               id="contact-message"
               name="message"
               required
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-500 min-h-[100px]"
+              class="w-full py-2 px-3 border border-corporate-light-gray rounded text-corporate-dark-gray leading-tight focus:outline-none focus:ring-2 focus:ring-mckinsey-teal focus:border-mckinsey-teal min-h-[100px]"
               :class="{ 'border-red-500': formErrors.message }"
               placeholder="Your message..."
               aria-required="true"
@@ -282,10 +284,10 @@ watch(() => props.show, (newVal) => {
           </div>
         </div>
 
-        <div class="modal-footer flex flex-row justify-between">
+        <div class="modal-footer">
           <slot name="footer">
             <button
-              class="inline-block rounded bg-neutral-50 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-800 shadow-[0_4px_9px_-4px_#cbcbcb] transition duration-150 ease-in-out hover:bg-neutral-100 focus:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-blue-500 active:bg-neutral-200"
+              class="btn-secondary text-sm"
               @click="closeMessage"
               type="button"
               :disabled="isSubmitting"
@@ -294,7 +296,7 @@ watch(() => props.show, (newVal) => {
             </button>
             <button
               type="button"
-              class="inline-block rounded bg-neutral-800 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-50 shadow-[0_4px_9px_-4px_rgba(51,45,45,0.7)] transition duration-150 ease-in-out hover:bg-neutral-700 focus:bg-neutral-700 focus:outline-none focus:ring-2 focus:ring-blue-500 active:bg-neutral-900 dark:bg-neutral-900 dark:hover:bg-neutral-800 disabled:opacity-50 disabled:cursor-not-allowed"
+              class="btn-primary text-sm disabled:opacity-50 disabled:cursor-not-allowed"
               @click="submitForm"
               :disabled="isSubmitting"
             >
@@ -304,17 +306,18 @@ watch(() => props.show, (newVal) => {
         </div>
       </div>
 
+      <!-- Success Step -->
       <div v-if="submitSuccess" ref="modalContainer" class="modal-container">
         <div class="modal-header">
-          <h3 id="modal-title" class="text-green-600 font-bold">Message Sent!</h3>
+          <h3 id="modal-title" class="text-mckinsey-teal">Message Sent!</h3>
         </div>
         <div class="modal-body text-center">
-          <div class="text-green-500 text-5xl mb-4">&#10003;</div>
-          <p class="text-gray-700">Thank you for your message! I'll get back to you soon.</p>
+          <div class="text-mckinsey-teal text-5xl mb-4">&#10003;</div>
+          <p class="text-corporate-dark-gray">Thank you for your message! I'll get back to you soon.</p>
         </div>
-        <div class="modal-footer flex justify-center">
+        <div class="modal-footer justify-center">
           <button
-            class="inline-block rounded bg-neutral-800 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-50 shadow-[0_4px_9px_-4px_rgba(51,45,45,0.7)] transition duration-150 ease-in-out hover:bg-neutral-700 focus:bg-neutral-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            class="btn-primary text-sm"
             @click="closeMessage"
             type="button"
           >
@@ -335,32 +338,37 @@ watch(() => props.show, (newVal) => {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 32, 91, 0.6);
   display: flex;
   transition: opacity 0.3s ease;
 }
 
 .modal-container {
-  width: 300px;
+  width: 400px;
+  max-width: 90vw;
   margin: auto;
-  padding: 20px 30px;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-  transition: all 0.3s ease;
+  padding: 32px;
+  background-color: #FFFFFF;
+  border: 1px solid #E9ECEF;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 
 .modal-header h3 {
   margin-top: 0;
-  color: #000000;
+  color: #00205B;
+  font-weight: 600;
+  font-size: 1.5rem;
 }
 
 .modal-body {
-  margin: 20px 0;
+  margin: 24px 0;
 }
 
-.modal-default-button {
-  float: right;
+.modal-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .modal-enter-from {
@@ -373,7 +381,6 @@ watch(() => props.show, (newVal) => {
 
 .modal-enter-from .modal-container,
 .modal-leave-to .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 </style>

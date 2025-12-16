@@ -1,44 +1,48 @@
 <template>
-  <p class="text-block my-2">
-    {{ props.skills.programmingLanguages.description }}
-  </p>
-  <div class="md:w-8/12 mx-auto">
-    <canvas ref="programmingLanguages" :id="`toolstack-1-${props.index}`" class="my-5">
+  <div class="space-y-8">
+    <div>
+      <p class="text-body text-corporate-dark-gray dark:text-corporate-light-gray mb-4">
+        {{ props.skills.programmingLanguages.description }}
+      </p>
+      <div class="md:w-10/12 mx-auto">
+        <canvas ref="programmingLanguages" :id="`toolstack-1-${props.index}`"></canvas>
+      </div>
+    </div>
 
-    </canvas>
-  </div>
-  <p class="text-block my-2">
-    {{ props.skills.frameworks.description }}
-  </p>
-  <div class="md:w-8/12 mx-auto">
-    <canvas ref="frameworks" :id="`toolstack-2-${props.index}`" class="my-5">
+    <div>
+      <p class="text-body text-corporate-dark-gray dark:text-corporate-light-gray mb-4">
+        {{ props.skills.frameworks.description }}
+      </p>
+      <div class="md:w-10/12 mx-auto">
+        <canvas ref="frameworks" :id="`toolstack-2-${props.index}`"></canvas>
+      </div>
+    </div>
 
-    </canvas>
-  </div>
-  <p class="text-block my-2">
-    {{ props.skills.libraries.description }}
-  </p>
-  <div class="md:w-8/12 mx-auto">
-    <canvas ref="libraries" :id="`toolstack-3-${props.index}`" class="my-5">
-
-    </canvas>
+    <div>
+      <p class="text-body text-corporate-dark-gray dark:text-corporate-light-gray mb-4">
+        {{ props.skills.libraries.description }}
+      </p>
+      <div class="md:w-10/12 mx-auto">
+        <canvas ref="libraries" :id="`toolstack-3-${props.index}`"></canvas>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref, onUnmounted, onMounted, watch } from 'vue'
-import { storeToRefs } from 'pinia';
-import { Chart } from 'chart.js/auto';
+import { storeToRefs } from 'pinia'
+import { Chart } from 'chart.js/auto'
 import { useAppStore } from '../stores/appStore.js'
 
-const { theme } = storeToRefs(useAppStore());
-watch(theme, (theme, prevTheme) => {
-  programmingLanguagesChart.value.destroy();
-  frameworksChart.value.destroy();
-  librariesChart.value.destroy();
-  createSkillCharts(theme);
+const { theme } = storeToRefs(useAppStore())
 
-});
+watch(theme, (newTheme) => {
+  if (programmingLanguagesChart.value) programmingLanguagesChart.value.destroy()
+  if (frameworksChart.value) frameworksChart.value.destroy()
+  if (librariesChart.value) librariesChart.value.destroy()
+  createSkillCharts(newTheme)
+})
 
 const props = defineProps({
   index: {
@@ -47,101 +51,133 @@ const props = defineProps({
   },
   skills: {
     type: Object,
-    default: {}
+    default: () => ({})
   }
-});
+})
 
+const programmingLanguages = ref(null)
+const frameworks = ref(null)
+const libraries = ref(null)
 
-const programmingLanguages = ref(null);
-const frameworks = ref(null);
-const libraries = ref(null);
+const programmingLanguagesChart = ref(null)
+const frameworksChart = ref(null)
+const librariesChart = ref(null)
 
-const programmingLanguagesChart = ref(null);
-const frameworksChart = ref(null);
-const librariesChart = ref(null);
+// McKinsey color palette
+const MCKINSEY_NAVY = '#00205B'
+const MCKINSEY_TEAL = '#007FA3'
+const CORPORATE_DARK_GRAY = '#343A40'
+const CORPORATE_LIGHT_GRAY = '#E9ECEF'
+const MCKINSEY_NAVY_LIGHT = '#003380'
 
+const createSkillCharts = (currentTheme) => {
+  let barColor, fontColor, gridColor
 
-
-const createSkillCharts = (theme) => {
-  let config;
-  let data;
-  let rgba_value;
-  let font_color;
-  if (theme === 'light') {
-    rgba_value = '0';
-    font_color = 'black';
+  if (currentTheme === 'light') {
+    barColor = MCKINSEY_NAVY
+    fontColor = CORPORATE_DARK_GRAY
+    gridColor = CORPORATE_LIGHT_GRAY
   } else {
-    rgba_value = '255';
-    font_color = 'white';
+    barColor = MCKINSEY_TEAL
+    fontColor = CORPORATE_LIGHT_GRAY
+    gridColor = MCKINSEY_NAVY_LIGHT
   }
+
   for (const key in props.skills) {
     if (Object.hasOwnProperty.call(props.skills, key)) {
-      let element = props.skills[key];
-      let sortedElement = element.values.sort((a,b) => b.skillValue - a.skillValue);
-      let labels = element.values.map((el) => el.name);
-      let dataValues = element.values.map((el) => el.skillValue * 100);
-      let backgroundColor = element.values.map((el) => `rgba(${rgba_value}, ${rgba_value}, ${rgba_value}, ${el.skillValue})`);
+      const element = props.skills[key]
+      element.values.sort((a, b) => b.skillValue - a.skillValue)
+      const labels = element.values.map((el) => el.name)
+      const dataValues = element.values.map((el) => el.skillValue * 100)
 
-      data = {
+      // Create gradient opacity based on skill value
+      const backgroundColor = element.values.map((el) => {
+        const opacity = 0.3 + (el.skillValue * 0.7)
+        if (currentTheme === 'light') {
+          return `rgba(0, 32, 91, ${opacity})` // Navy with varying opacity
+        } else {
+          return `rgba(0, 127, 163, ${opacity})` // Teal with varying opacity
+        }
+      })
+
+      const data = {
         labels: labels,
         datasets: [{
-          label: 'Knowledge in [%]',
+          label: 'Proficiency (%)',
           data: dataValues,
           backgroundColor: backgroundColor,
-          borderWidth: 0
+          borderWidth: 0,
+          borderRadius: 2,
         }]
-      };
+      }
 
-      config = {
+      const config = {
         type: 'bar',
-        beginAtZero: true,
         data,
         options: {
-          // indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: true,
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
           scales: {
             x: {
+              grid: {
+                display: false
+              },
               ticks: {
-                color: font_color
+                color: fontColor,
+                font: {
+                  family: 'Inter',
+                  size: 11
+                }
               }
             },
             y: {
               min: 0,
               max: 100,
+              grid: {
+                color: gridColor
+              },
               ticks: {
-                color: font_color,
+                color: fontColor,
+                font: {
+                  family: 'Inter',
+                  size: 11
+                },
+                callback: (value) => value + '%'
               }
             }
           }
-        },
-      };
+        }
+      }
+
       switch (key) {
         case 'programmingLanguages':
-          programmingLanguagesChart.value = new Chart(programmingLanguages.value, config);
-          break;
+          programmingLanguagesChart.value = new Chart(programmingLanguages.value, config)
+          break
         case 'frameworks':
-          frameworksChart.value = new Chart(frameworks.value, config);
-          break;
+          frameworksChart.value = new Chart(frameworks.value, config)
+          break
         case 'libraries':
-          librariesChart.value = new Chart(libraries.value, config);
-          break;
-
+          librariesChart.value = new Chart(libraries.value, config)
+          break
         default:
-          console.warn('NO CANVAS FOR THIS SKILL')
-          break;
+          break
       }
     }
   }
-
 }
 
-
 onMounted(() => {
-  createSkillCharts(theme.value);
+  createSkillCharts(theme.value)
 })
 
 onUnmounted(() => {
-  if (programmingLanguagesChart.value) programmingLanguagesChart.value.destroy();
-  if (frameworksChart.value) frameworksChart.value.destroy();
-  if (librariesChart.value) librariesChart.value.destroy();
+  if (programmingLanguagesChart.value) programmingLanguagesChart.value.destroy()
+  if (frameworksChart.value) frameworksChart.value.destroy()
+  if (librariesChart.value) librariesChart.value.destroy()
 })
 </script>

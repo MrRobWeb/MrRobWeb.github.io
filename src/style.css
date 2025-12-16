@@ -1,46 +1,148 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+/* McKinsey-Style Corporate Typography */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base{
-    html{
-        font-family: 'Ubuntu', sans-serif;
-    }
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    color: #212529;
+    background-color: #FFFFFF;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'kern' 1, 'liga' 1;
+  }
+
+  .dark body {
+    color: #E9ECEF;
+    background-color: #001845;
+  }
 }
 
-@layer utilities{
-    .nav{
-        @apply relative 
-        text-gray-500
-        font-bold 
-        tracking-[1px] 
-        hover:text-blue-950 
-        dark:hover:text-white
-    }
+@layer components {
+  /* McKinsey-style container */
+  .container-corporate {
+    @apply max-w-wide mx-auto px-6 md:px-12 lg:px-16;
+  }
 
-    .nav::after{
-        @apply content-[''] bg-blue-950  dark:bg-pink-500 h-[3px] w-[0%] left-0 -bottom-[5px] rounded-xl absolute duration-300
-    }
+  /* Content-width container for readability */
+  .container-content {
+    @apply max-w-content mx-auto px-6;
+  }
 
-    .nav:hover::after{
-        @apply w-[100%]
-    }
-    .contact{
-        @apply relative 
-        text-gray-500
-        font-bold 
-        tracking-[1px] 
-        hover:text-blue-950 
-    }
+  /* Section spacing */
+  .section {
+    @apply py-section-sm md:py-section;
+  }
 
-    .contact::after{
-        @apply content-[''] bg-blue-950  dark:bg-pink-500 h-[3px] w-[0%] left-0 -bottom-[5px] rounded-xl absolute duration-300
-    }
+  /* Horizontal rule - corporate style */
+  .divider {
+    @apply border-t border-corporate-light-gray dark:border-mckinsey-navy-light my-8;
+  }
+}
 
-    .contact:hover::after{
-        @apply w-[100%]
-    }
+@layer utilities {
+  /* Navigation link - corporate style */
+  .nav {
+    @apply relative
+           text-corporate-mid-gray
+           font-medium
+           tracking-wider
+           text-sm
+           uppercase
+           transition-colors
+           duration-200
+           hover:text-mckinsey-navy
+           dark:text-corporate-light-gray
+           dark:hover:text-white;
+  }
+
+  .nav::after {
+    @apply content-['']
+           bg-mckinsey-teal
+           h-[2px]
+           w-0
+           left-0
+           -bottom-1
+           absolute
+           transition-all
+           duration-300
+           ease-out;
+  }
+
+  .nav:hover::after,
+  .nav.router-link-active::after {
+    @apply w-full;
+  }
+
+  /* Contact/CTA links */
+  .link-corporate {
+    @apply text-mckinsey-teal
+           font-medium
+           hover:text-mckinsey-teal-light
+           transition-colors
+           duration-200;
+  }
+
+  /* Button styles */
+  .btn-primary {
+    @apply inline-flex
+           items-center
+           justify-center
+           px-6
+           py-3
+           bg-mckinsey-navy
+           text-white
+           font-medium
+           text-sm
+           uppercase
+           tracking-wider
+           transition-all
+           duration-200
+           hover:bg-mckinsey-navy-light
+           focus:outline-none
+           focus:ring-2
+           focus:ring-mckinsey-teal
+           focus:ring-offset-2
+           dark:bg-mckinsey-teal
+           dark:hover:bg-mckinsey-teal-light;
+  }
+
+  .btn-secondary {
+    @apply inline-flex
+           items-center
+           justify-center
+           px-6
+           py-3
+           border-2
+           border-mckinsey-navy
+           text-mckinsey-navy
+           font-medium
+           text-sm
+           uppercase
+           tracking-wider
+           transition-all
+           duration-200
+           hover:bg-mckinsey-navy
+           hover:text-white
+           dark:border-corporate-light-gray
+           dark:text-corporate-light-gray
+           dark:hover:bg-corporate-light-gray
+           dark:hover:text-mckinsey-navy-dark;
+  }
+
+  /* Card styles - McKinsey clean */
+  .card-corporate {
+    @apply bg-white
+           dark:bg-mckinsey-navy
+           border
+           border-corporate-light-gray
+           dark:border-mckinsey-navy-light;
+  }
 }

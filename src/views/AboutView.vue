@@ -1,167 +1,175 @@
-
 <template>
-    <div class="flex flex-col  sm:w-8/12 md:mx-auto animate-fade dark:text-white">
-        <div
-            class="flex flex-col overflow-hidden bg-white rounded shadow-md sm:flex-row text-slate-500 shadow-slate-200">
-            <div class="flex-1 p-6 sm:mx-6 sm:px-0">
-                <span class="flex gap-4 ">
-                    <a href="#" class="relative inline-flex items-center justify-center w-12 h-12 text-white rounded-full">
-                        <img src="../assets/imgs/IMG_7440_1.jpeg" alt="Robert Weber" title="Robert Weber" width="48"
-                            height="48" loading="lazy" class="max-w-full rounded-full" />
-                    </a>
-                    <div>
-                        <div class="text-xl font-medium  text-slate-700">HELLO</div>
-                        <div class="text-sm font-medium  text-slate-400"> By Robert, July 16 2023</div>
-                    </div>
-                </span>
-                <p>
-                    Currently, working as Data Engineering Manager. I'm a passionate techchnology lead, who loves to design effective,
-                    minimal and beautifull software products.
-
-                </p>
-                <p class="font-bold">
-                    <q >
-                        Learning never exhaust the mind.
-                    </q>
-                    - Leonardo da Vinci
-                </p>
-                <p>
-                    Started my academic education in applied quantum physics and careerwise, moved into IT consulting {{ workAge }} ago, have worked as
-                    devops engineer, data architect, data engineer, trainer, project manager, fullstack developer and pre-sales consultant
-                    in several industries, for instance, in
-                    energy, HR, automotive, aviation, retail and pharmarceutical industry.
-                </p>
-                <RouterLink to="/about" @click="scrollToTechStack" class="contact border-4 hover:border-blue-950 rounded">
-                    TECHNOLOGY STACK
-                </RouterLink>
-
-                <RouterLink to="/project" class="contact border-4 hover:border-blue-950 rounded">
-                    PROJECTS
-                </RouterLink>
-                <p>
-                    You can find all detailed information about my work and educational background on my Linkedin profile. Feel free to drop me a message or reach out to me directly through Linkedin.
-                </p>
-
-                <RouterLink to="/contact" class="contact border-4 hover:border-blue-950 rounded">
-                    CONTACT ME
-                </RouterLink>
-            </div>
+  <div class="section">
+    <div class="container-corporate">
+      <!-- Introduction Section -->
+      <div class="max-w-3xl mx-auto mb-16">
+        <div class="flex items-start gap-6 mb-8">
+          <img
+            src="../assets/imgs/IMG_7440_1.jpeg"
+            alt="Robert Weber"
+            class="w-20 h-20 md:w-24 md:h-24 rounded-full flex-shrink-0"
+          >
+          <div>
+            <h2 class="text-heading-2 text-mckinsey-navy dark:text-white mb-2">About</h2>
+            <p class="text-small text-corporate-mid-gray">Data Engineering Manager</p>
+          </div>
         </div>
-        <h1 ref="tech_stack" id="tech-stack" class="mt-8 mb-4 text-left text-3xl sm:text-4xl uppercase font-bold dark:text-white animate-fade">Technology
-            Stack</h1>
-        <TransitionGroup tag="ul" name="fade" aria-label="Technology stack categories" role="feed"
-            class="relative flex flex-col gap-12 py-12 pl-8 before:absolute before:top-0 before:left-8 before:h-full before:border before:-translate-x-1/2 before:border-slate-200 before:border-dashed after:absolute after:top-6 after:left-8 after:bottom-6 after:border after:-translate-x-1/2 after:border-slate-200 ">
-            <li :ref="setItemRef" v-for="(toolStack, index) in toolStacks" :key="toolStack.title" :data-index="index"
-                @click="toggleShow(index)" role="article" class="relative pl-8 cursor-pointer"
-                :aria-expanded="show === index"
+
+        <div class="space-y-6">
+          <p class="text-body-lg text-corporate-dark-gray dark:text-corporate-light-gray">
+            Currently working as Data Engineering Manager. I'm a passionate technology lead
+            who designs effective, minimal, and impactful software products.
+          </p>
+
+          <blockquote class="border-l-4 border-mckinsey-teal pl-6 my-8 italic text-corporate-mid-gray">
+            "Learning never exhausts the mind." — Leonardo da Vinci
+          </blockquote>
+
+          <p class="text-body text-corporate-dark-gray dark:text-corporate-light-gray">
+            Started my academic education in applied quantum physics and moved into IT consulting
+            {{ workAge }} ago. Experience spans DevOps engineering, data architecture, project management,
+            and fullstack development across energy, HR, automotive, aviation, retail, and pharmaceutical industries.
+          </p>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="flex flex-wrap gap-4 mt-8">
+          <button @click="scrollToTechStack" class="btn-secondary text-sm">
+            Technology Stack
+          </button>
+          <RouterLink to="/project" class="btn-secondary text-sm">
+            View Projects
+          </RouterLink>
+          <RouterLink to="/contact" class="btn-primary text-sm">
+            Contact Me
+          </RouterLink>
+        </div>
+      </div>
+
+      <!-- Technology Stack Section -->
+      <section id="tech-stack" ref="tech_stack" class="pt-16">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="text-heading-1 text-mckinsey-navy dark:text-white mb-12">
+            Technology Stack
+          </h2>
+
+          <!-- Timeline - clean McKinsey style -->
+          <div class="space-y-0">
+            <article
+              v-for="(toolStack, index) in toolStacks"
+              :key="toolStack.title"
+              :ref="setItemRef"
+              class="relative pl-8 border-l-2 border-corporate-light-gray dark:border-mckinsey-navy-light hover:border-mckinsey-teal transition-colors duration-300"
             >
-                <button
-                    class="absolute left-0 z-10 flex items-center justify-center w-10 h-10 -translate-x-1/2 rounded-full text-slate-700 ring-2 ring-white bg-slate-200 "
-                    :aria-label="`Toggle ${toolStack.title} details`">
-                    <font-awesome-icon :icon="toolStack.icon" />
-                </button>
-                <div class="flex flex-col flex-1 gap-0">
-                    <h4 class="text-base font-medium "> {{ toolStack.title }}</h4><p class="text-sm text-slate-500">{{ toolStack.subTitle }}</p>
-                    <p v-if="show != index" class="self-start animate-pulse text-sm text-black border border-orange-700 dark:text-white rounded">click - to get more details</p>
+              <!-- Timeline dot -->
+              <button
+                class="absolute left-0 top-0 w-4 h-4 -translate-x-[9px] rounded-full bg-corporate-light-gray dark:bg-mckinsey-navy-light border-2 border-white dark:border-mckinsey-navy-dark hover:bg-mckinsey-teal transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-mckinsey-teal"
+                @click="toggleShow(index)"
+                :aria-expanded="show === index"
+                :aria-label="`Toggle ${toolStack.title} details`"
+              ></button>
 
-                    <p v-if="show == index" class="text-block">
-                        {{ getDescription(toolStack, index) }}
-                        <SkillChart :index="index" :skills="toolStack.skills">
+              <div class="pb-12 cursor-pointer" @click="toggleShow(index)">
+                <h3 class="text-heading-3 text-mckinsey-navy dark:text-white mb-1">
+                  {{ toolStack.title }}
+                </h3>
+                <p class="text-small text-corporate-mid-gray mb-2">
+                  {{ toolStack.subTitle }}
+                </p>
+                <span v-if="show !== index" class="text-sm text-mckinsey-teal">
+                  Click to expand
+                </span>
 
-                        </SkillChart>
+                <!-- Expanded content with simple fade -->
+                <Transition name="fade">
+                  <div v-if="show === index" class="mt-4">
+                    <p class="text-body text-corporate-dark-gray dark:text-corporate-light-gray mb-6">
+                      {{ getDescription(toolStack, index) }}
                     </p>
-                </div>
-            </li>
-        </TransitionGroup>
+                    <SkillChart :index="String(index)" :skills="toolStack.skills" />
+                  </div>
+                </Transition>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
     </div>
+  </div>
 </template>
 
-
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
-import SkillChart from '../components/SkillChart.vue';
+import SkillChart from '../components/SkillChart.vue'
 import { useAppStore } from '../stores/appStore.js'
 import { toolStacks as skillsData } from '../data/skills.js'
 
-const { heightHeader, workAge } = storeToRefs(useAppStore());
+const { heightHeader, workAge } = storeToRefs(useAppStore())
 
-const toolStacks = ref(skillsData);
+const toolStacks = ref(skillsData)
 
 const itemRefs = ref([])
 const setItemRef = (el) => {
-    if (el) {
-    itemRefs.value.push(el);
-    }
+  if (el) {
+    itemRefs.value.push(el)
+  }
 }
 
 onMounted(() => {
-    window.scrollTo({
-    top: 0
-  })
+  window.scrollTo({ top: 0 })
 })
 
-const tech_stack = ref(null);
+const tech_stack = ref(null)
 
 const scrollToTechStack = () => {
-
-    setTimeout(function(){
-        scrollIntoViewWithOffset(tech_stack.value, heightHeader.value)
-
-    }, 200);
+  setTimeout(() => {
+    scrollIntoViewWithOffset(tech_stack.value, heightHeader.value)
+  }, 200)
 }
 
 const scrollIntoViewWithOffset = (el, offset) => {
   window.scrollTo({
     behavior: 'smooth',
     top:
-        el.getBoundingClientRect().top -
-        document.body.getBoundingClientRect().top -
-        offset-30,
+      el.getBoundingClientRect().top -
+      document.body.getBoundingClientRect().top -
+      offset - 30,
   })
 }
 
 const getDescription = (toolStack, index) => {
-    if (index === 1) {
-        return `Being a data magician in the first place, I've been working in this area since finishing my studies ${workAge.value} ago.`;
-    }
-    return toolStack.description;
+  if (index === 1) {
+    return `Being a data magician in the first place, I've been working in this area since finishing my studies ${workAge.value} ago.`
+  }
+  return toolStack.description
 }
 
-const show = ref(-1);
+const show = ref(-1)
 
 const toggleShow = (index) => {
-    if (show.value == index) {
-        show.value = -1;
-    } else {
-        show.value = index;
+  if (show.value === index) {
+    show.value = -1
+  } else {
+    show.value = index
+  }
+  setTimeout(() => {
+    if (itemRefs.value[index]) {
+      scrollIntoViewWithOffset(itemRefs.value[index], heightHeader.value)
     }
-    setTimeout(function(){
-        scrollIntoViewWithOffset(itemRefs.value[index], heightHeader.value)
-
-    }, 500);
-
-
+  }, 300)
 }
-
 </script>
-<style>
-/* 1. declare transition */
-.fade-move,
+
+<style scoped>
 .fade-enter-active,
 .fade-leave-active {
-    transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-/* 2. declare enter from and leave to state */
 .fade-enter-from,
 .fade-leave-to {
-    opacity: 0;
-    transform: scaleY(0.01) translate(30px, 0);
+  opacity: 0;
+  transform: translateY(-10px);
 }
-
-/* 3. ensure leaving items are taken out of layout flow so that moving
-      animations can be calculated correctly. */
-.fade-leave-active {
-    position: absolute;
-}</style>
+</style>

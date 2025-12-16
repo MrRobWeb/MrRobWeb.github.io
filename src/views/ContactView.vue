@@ -1,80 +1,63 @@
 <template>
-    <div class="flex justify-center md:my-10 sm:w-8/12 mx-auto animate-fade">
-        <div class="flex flex-col items-center mb-auto w-full">
+  <div class="section">
+    <div class="container-corporate">
+      <div class="max-w-2xl mx-auto text-center">
+        <h1 class="text-hero text-mckinsey-navy dark:text-white mb-4">
+          Contact
+        </h1>
+        <p class="text-body-lg text-corporate-mid-gray dark:text-corporate-light-gray mb-12">
+          I'd love to hear from you. Choose your preferred method of contact.
+        </p>
 
-            <h1 class="mt-8 mb-4 text-center text-3xl sm:text-4xl uppercase font-bold dark:text-white animate-fade">Contact me</h1>
-            <transition-group
-                appear
-                tag="ul"
-                @before-enter="beforeEnter"
-                @enter="enter"
-                class="grid grid-cols-2 md:gap-10 sm:gap-5 place-content-center text-center">
-                <span v-for="(icon, index) in icons" :key="icon.name" :data-index="index">
-                    <a v-if="icon.href"
-                        :href="icon.href" target="_blank"
-                        class="m-1 p-1 text-2xl hover:text-blue-600 ">
-                        <div class="flex flex-col rounded-lg bg-white p-6 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
-                            <font-awesome-icon :icon="icon.icon" />
-                            <h5 class="my-1">{{ icon.name }}</h5>
-                        </div>
-                    </a>
-                    <a v-else
-                        @click="showModal = true" id="show-modal" 
-                        target="_blank"
-                        class="m-1 p-1 text-2xl hover:text-blue-600 ">
-                        <div class="flex flex-col rounded-lg bg-white p-6 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
-                            <font-awesome-icon :icon="icon.icon" />
-                            <h5 class="my-1">{{ icon.name }}</h5>
-                        </div>
-                    </a>
-                    <Teleport to="body">
-                        <modal :show="showModal" @close="showModal = false">
-                        <template #header>
-                            <h3>Drop me a message:</h3>
-                        </template>
-                        </modal>
-                    </Teleport>
-
-                </span>
-            </transition-group>
+        <!-- Contact Cards - clean grid -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <a
+            v-for="(contact, index) in contacts"
+            :key="contact.name"
+            :href="contact.href || undefined"
+            @click="!contact.href && (showModal = true)"
+            :target="contact.href ? '_blank' : undefined"
+            rel="noopener noreferrer"
+            class="p-6 bg-corporate-off-white dark:bg-mckinsey-navy border border-corporate-light-gray dark:border-mckinsey-navy-light hover:border-mckinsey-teal dark:hover:border-mckinsey-teal transition-all duration-200 cursor-pointer opacity-0 animate-fade-in group"
+            :style="{ animationDelay: `${index * 0.1}s` }"
+          >
+            <font-awesome-icon
+              :icon="contact.icon"
+              class="text-3xl text-corporate-mid-gray group-hover:text-mckinsey-teal dark:text-corporate-light-gray dark:group-hover:text-mckinsey-teal-light transition-colors duration-200 mb-3"
+            />
+            <p class="text-sm font-medium text-corporate-dark-gray dark:text-corporate-light-gray capitalize">
+              {{ contact.name }}
+            </p>
+          </a>
         </div>
+      </div>
     </div>
+
+    <!-- Modal -->
+    <Teleport to="body">
+      <Modal :show="showModal" @close="showModal = false">
+        <template #header>
+          <h3>Drop me a message:</h3>
+        </template>
+      </Modal>
+    </Teleport>
+  </div>
 </template>
 
-<script setup> 
-
+<script setup>
 import { ref, onMounted } from 'vue'
-import gsap from 'gsap'
 import Modal from '../components/Modal.vue'
 
-onMounted(() => {
-    window.scrollTo({
-    top: 0
-  })
-})
-
 const showModal = ref(false)
-const icons = ref([
-    {name: 'Message', icon: 'fa-solid fa-envelope'},
-    {name: 'linkedin', icon: 'fa-brands fa-linkedin', href: 'https://www.linkedin.com/in/robert-w-300922158/'},
-    {name: 'github', icon: 'fa-brands fa-github', href: 'https://github.com/MrRobWeb'},
-    {name: 'gitlab', icon: 'fa-brands fa-gitlab', href: 'https://gitlab.com/MrRobWeb'},
+
+const contacts = ref([
+  { name: 'Message', icon: 'fa-solid fa-envelope' },
+  { name: 'LinkedIn', icon: 'fa-brands fa-linkedin', href: 'https://www.linkedin.com/in/robert-w-300922158/' },
+  { name: 'GitHub', icon: 'fa-brands fa-github', href: 'https://github.com/MrRobWeb' },
+  { name: 'GitLab', icon: 'fa-brands fa-gitlab', href: 'https://gitlab.com/MrRobWeb' },
 ])
 
-const beforeEnter = (el) => {
-    el.style.opacity = 0;
-    el.style.transform = 'translateY(100px)'
-
-}
-
-const enter = (el,done) => {
-    gsap.to(el,{
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        onComplete: done,
-        delay: el.dataset.index * 0.2
-    })
-    
-}
+onMounted(() => {
+  window.scrollTo({ top: 0 })
+})
 </script>
