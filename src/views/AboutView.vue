@@ -52,7 +52,7 @@
               <p class="text-body text-corporate-dark-gray dark:text-corporate-light-gray">
                 {{ workAge }} of consulting experience following an academic foundation in applied quantum physics.
                 Core competencies include DevOps engineering, enterprise data architecture, project delivery,
-                and fullstack development. Industry expertise spans energy, human resources, automotive,
+                and fullstack development. Industry expertise spans financial services, energy, human resources,
                 aviation, retail, and pharmaceutical sectors.
               </p>
             </div>

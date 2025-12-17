@@ -68,7 +68,7 @@ export const projects = [
   {
     title: 'Enterprise Data Analytics Architecture',
     role: 'Data Engineer | Lead Consultant',
-    industry: 'Manufacturing | Automotive | Financial Services | Healthcare | Public Sector',
+    industry: 'Financial Services | Automotive | Manufacturing | Healthcare | Public Sector',
     technologies: ['Qlik', 'Microsoft SSAS & SSIS', 'Power BI', 'AWS', 'Python'],
     date: 'September 2014 - March 2022',
     description: `Led end-to-end implementation of enterprise analytics architectures for Fortune 500 clients. Managed full project lifecycle from infrastructure sizing and software deployment to ERP/CRM data integration (SAP, Microsoft Dynamics, Salesforce). Designed semantic data models and developed executive dashboards with role-based access controls for sensitive data. Impact: Delivered analytics capabilities to 10,000+ end users across multiple organizations, driving data-informed decision making.`
