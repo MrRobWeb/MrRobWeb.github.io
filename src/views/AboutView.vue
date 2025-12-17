@@ -26,7 +26,7 @@
       <section id="about" ref="aboutRef" class="content-section">
         <div class="section-inner">
           <div class="max-w-3xl mx-auto">
-            <div class="flex items-start gap-6 mb-8">
+            <div class="flex items-center gap-6 mb-8">
               <img
                 src="../assets/imgs/profile.jpg"
                 alt="Robert Weber"

@@ -67,9 +67,9 @@
           class="mt-3 opacity-0 animate-fade-in"
           style="animation-delay: 0.7s"
         >
-          <RouterLink to="/digital-twin" class="btn-secondary">
+          <RouterLink to="/digital-twin" class="digital-twin-btn">
             <font-awesome-icon :icon="['fas', 'robot']" class="mr-2" />
-            Chat with my Digital Twin
+            Chat with my AI-powered Digital Twin
           </RouterLink>
         </div>
       </div>
@@ -84,3 +84,14 @@ onMounted(() => {
   window.scrollTo({ top: 0 });
 });
 </script>
+
+<style scoped>
+.digital-twin-btn {
+  @apply inline-flex items-center px-6 py-3 text-sm font-semibold;
+  @apply border-2 border-mckinsey-teal text-mckinsey-teal;
+  @apply hover:bg-mckinsey-teal hover:text-white;
+  @apply dark:border-mckinsey-teal dark:text-mckinsey-teal;
+  @apply dark:hover:bg-mckinsey-teal dark:hover:text-white;
+  @apply transition-all duration-200;
+}
+</style>
