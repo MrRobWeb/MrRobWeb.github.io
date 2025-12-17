@@ -239,8 +239,8 @@ const findRelevantContext = async (query) => {
 
     similarities.sort((a, b) => b.similarity - a.similarity)
 
-    // Get top 5 most relevant chunks for better coverage
-    const topChunks = similarities.slice(0, 5)
+    // Get top 3 most relevant chunks
+    const topChunks = similarities.slice(0, 3)
     console.log('Retrieved chunks:', topChunks.map(c => ({ title: c.title, similarity: c.similarity.toFixed(3) })))
     return topChunks.map(chunk => chunk.content).join('\n\n')
   } catch (error) {

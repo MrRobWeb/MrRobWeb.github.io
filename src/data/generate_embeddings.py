@@ -378,19 +378,29 @@ def main():
             "embedding": embedding
         })
 
-    # Save to JSON file
-    output_path = Path(__file__).parent / "embeddings.json"
-    with open(output_path, "w") as f:
-        json.dump({
-            "model": EMBEDDING_MODEL,
-            "provider": "jina",
-            "dimensions": len(embeddings_data[0]["embedding"]),
-            "count": len(embeddings_data),
-            "data": embeddings_data
-        }, f, indent=2)
+    # Save to JSON files (src/data and public for production)
+    output_data = {
+        "model": EMBEDDING_MODEL,
+        "provider": "jina",
+        "dimensions": len(embeddings_data[0]["embedding"]),
+        "count": len(embeddings_data),
+        "data": embeddings_data
+    }
+
+    # Save to src/data
+    src_output_path = Path(__file__).parent / "embeddings.json"
+    with open(src_output_path, "w") as f:
+        json.dump(output_data, f, indent=2)
+
+    # Save to public folder for production
+    public_output_path = project_root / "public" / "embeddings.json"
+    with open(public_output_path, "w") as f:
+        json.dump(output_data, f, indent=2)
 
     print(f"\n✅ Successfully generated {len(embeddings_data)} embeddings")
-    print(f"📁 Saved to: {output_path}")
+    print(f"📁 Saved to:")
+    print(f"   - {src_output_path}")
+    print(f"   - {public_output_path}")
     print(f"📊 Embedding dimensions: {len(embeddings_data[0]['embedding'])}")
 
 
